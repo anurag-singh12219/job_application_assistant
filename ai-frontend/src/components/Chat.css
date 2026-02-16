@@ -478,27 +478,76 @@
   }
 
   .chat-input-area {
-    padding: 0.5rem;
+    padding: 0.45rem;
   }
 
   .chat-input {
     font-size: 0.7rem;
     padding: 0.5rem;
     min-height: 35px;
+    flex: 1;
   }
 
   .input-controls {
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    align-items: stretch;
   }
 
   .file-upload-btn,
   .send-btn {
-    flex: 1 1 auto;
-    min-width: 80px;
-    padding: 0.5rem;
-    font-size: 0.7rem;
+    flex: 0 0 auto;
+    width: 36px;
+    min-width: 36px;
+    padding: 0.5rem 0.3rem;
+    font-size: 1rem;
     border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-indent: -9999px;
+    position: relative;
+  }
+
+  .file-upload-btn::before {
+    content: "📎";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-indent: 0;
+    font-size: 1.1rem;
+  }
+
+  .send-btn::before {
+    content: "📤";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-indent: 0;
+    font-size: 1.1rem;
+  }
+
+  .send-btn.sending::before {
+    content: "⏳";
+  }
+
+  .file-indicator {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.65rem;
+    border-radius: 6px;
+  }
+
+  .file-indicator span {
+    font-size: 0.65rem;
+  }
+
+  .file-remove {
+    font-size: 0.9rem;
+    padding: 0 0.25rem;
   }
 
   .quick-questions {
