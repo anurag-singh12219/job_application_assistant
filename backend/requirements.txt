@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+spacy
+pdfplumber
+python-multipart
+requests
+python-dotenv
+openai
+groq
+langchain
+langchain-openai
+langchain-groq
+beautifulsoup4
+httpx
