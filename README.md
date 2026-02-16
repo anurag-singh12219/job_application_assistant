@@ -1,23 +1,34 @@
 # AI Job Application Assistant
 
-A full-stack web application designed to help job seekers with resume optimization, job matching, interview preparation, and salary negotiation. The application combines classical algorithms with AI-powered features to provide actionable career guidance.
+A full-stack web application designed to help job seekers with resume optimization, job matching, interview preparation, and salary negotiation. The application combines **classical algorithms with AI-powered features** to provide actionable career guidance.
+
+**Working Implementation**: Complete Python backend with real algorithms + React frontend with full integration.
+
+## Documentation
+
+For comprehensive information:
+- **[SETUP.md](SETUP.md)** - Installation, configuration, and testing (start here)
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Technical architecture, algorithms, data flow, and implementation details
+- **[API_REFERENCE.md](API_REFERENCE.md)** - Complete API endpoint reference with examples
+- **[README.md](README.md)** - This file (project overview)
 
 ## Overview
 
 This project implements both algorithmic and AI-driven approaches to address common challenges in the job search process:
 
-- **Resume Analysis**: TF-IDF based scoring with comprehensive keyword extraction and format evaluation
-- **Job Matching**: Multi-factor algorithm that weights skill relevance, experience alignment, and market opportunity
-- **Interview Preparation**: Role-specific technical and behavioral question generation with answer frameworks
-- **Salary Intelligence**: Market-based salary estimation and negotiation guidance
-- **Career Chat**: Conversational AI interface for real-time career advice
-- **Live Job Search**: Integration with live job market data
+- **Resume Analysis**: TF-IDF vectorization-based scoring (scikit-learn) with keyword extraction and format evaluation
+- **Job Matching**: Multi-factor composite algorithm combining skill overlap, TF-IDF similarity, and experience alignment
+- **Interview Preparation**: Role-specific question generation with STAR framework and answer guidance
+- **Salary Intelligence**: Market-based estimation using linear regression and real salary data
+- **Career Chat**: Conversational AI interface with file upload support
+- **Live Job Search**: Integration with Adzuna API (2M+ job listings)
 
-## Technology Stack
+## Core Technologies
 
-**Backend**: Python 3.12 | FastAPI | scikit-learn | spaCy | pandas | Groq API  
+**Backend**: Python 3.12 | FastAPI | scikit-learn | spaCy NLP | pandas | Groq LLM  
 **Frontend**: React 18 | Vite | Axios | CSS3  
-**Data**: Adzuna Jobs API | pdfplumber for PDF processing
+**External APIs**: Adzuna Jobs (live data) | Groq (AI generation)  
+**Algorithms**: TF-IDF, Cosine Similarity, Fuzzy Matching, Graph Algorithms
 
 ---
 
