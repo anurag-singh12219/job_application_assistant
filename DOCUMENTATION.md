@@ -505,33 +505,112 @@ Response:
 
 ### Core Algorithms
 
-#### TF-IDF Vectorization
-Used for resume-job description similarity:
-- Converts text to numerical vectors
-- Accounts for word importance (rare words weighted higher)
-- Calculates cosine similarity between documents
-- Complexity: O(n*m) where n=resume length, m=job description length
+#### 1. ATS Engine (Resume Scoring)
+**File**: `backend/services/ats_engine.py`
 
-#### Fuzzy String Matching
-Used for skill name variations:
-- Jaccard similarity: intersection/union of character sets
+The ATS engine uses a weighted combination of three scoring methods:
+
+```python
+# TF-IDF Vectorization for content similarity
+tfidf = TfidfVectorizer(stop_words="english", ngram_range=(1, 2))
+matrix = tfidf.fit_transform([resume_text, job_description])
+tfidf_score = cosine_similarity(matrix[0:1], matrix[1:2])[0][0]
+
+# Weighted final score
+final_score = (tfidf_score * 0.60) + (keyword_score * 0.25) + (format_score * 0.15)
+```
+
+**Features**:
+- TF-IDF vectorization converts documents to numerical vectors
+- Rare keywords weighted higher than common words
+- Format analysis checks for contact info, achievements, structure
+- 80+ technical keywords indexed (Python, React, AWS, Docker, etc.)
+
+**Complexity**: O(n×m) where n=resume length, m=job description length
+
+#### 2. Skill Gap Analyzer
+**File**: `backend/services/skill_gap.py`
+
+Uses fuzzy string matching to handle skill name variations:
+
+```python
+# Jaccard similarity for fuzzy matching
+def calculate_similarity(s1: str, s2: str) -> float:
+    set1 = set(s1.lower())
+    set2 = set(s2.lower())
+    intersection = len(set1.intersection(set2))
+    union = len(set1.union(set2))
+    return intersection / union  # Returns 0-1 similarity score
+```
+
+**Features**:
 - Handles variations: "reactjs" ↔ "react", "nodejs" ↔ "node.js"
 - Threshold: 0.6 similarity considered a match
-- Complexity: O(k) where k=average skill name length
+- Categorizes skills as critical vs. nice-to-have
+- Generates learning paths using dependency graphs
 
-#### Multi-Factor Composite Scoring
-Used for job matching:
-- 5 different scoring factors combined
-- Weights: skills (40%), title (25%), experience (20%), rarity (10%), description (5%)
-- Normalizes each factor to 0-100 scale
-- Final score = weighted sum
+**Dependency Graph Example**:
+```python
+skill_dependencies = {
+    "react": ["javascript", "html", "css"],
+    "kubernetes": ["docker"],
+    "deep learning": ["machine learning", "python"]
+}
+```
 
-#### Dependency Graph Resolution
-Used for learning paths:
-- Builds directed graph of skill prerequisites
-- Topological sort for optimal learning order
-- Example: Learn JavaScript → React → Redux
-- Complexity: O(n + e) where n=skills, e=dependencies
+**Complexity**: O(n×m) for fuzzy matching, O(n log n) for topological sort
+
+#### 3. Job Matching Engine
+**File**: `backend/services/job_matcher.py`
+
+Multi-factor scoring system with TF-IDF weighting for rare skills:
+
+```python
+# Rare skills get higher weight
+idf = math.log(total_jobs / jobs_with_skill)
+tfidf_score = sum(idf for matched_skills)
+
+# Composite score calculation
+final_score = (
+    skill_overlap * 0.40 +      # Jaccard similarity of skills
+    title_relevance * 0.25 +    # Job title matching
+    experience_match * 0.20 +   # Experience level alignment
+    skill_rarity_bonus * 0.10 + # Bonus for rare skills
+    description_sim * 0.05      # Description similarity
+)
+```
+
+**Features**:
+- 5-factor weighted scoring system
+- Rare skills (like Rust, Scala) weighted higher than common ones
+- Normalizes each factor to 0-100 scale before combining
+- Returns detailed breakdown of all factors
+
+**Complexity**: O(n) for each job, where n=number of skills
+
+#### 4. Resume Parser
+**File**: `backend/services/resume_parser.py`
+
+Extracts structured information from PDF resumes:
+
+```python
+# PDF text extraction
+with pdfplumber.open(pdf_file) as pdf:
+    text = "\n".join([page.extract_text() for page in pdf.pages])
+
+# NLP entity recognition using spaCy
+nlp = spacy.load("en_core_web_sm")
+doc = nlp(text)
+entities = [(ent.text, ent.label_) for ent in doc.ents]
+```
+
+**Features**:
+- Extracts contact info using regex patterns
+- Identifies skills using pattern matching (200+ keywords)
+- Recognizes education, experience sections
+- Uses spaCy NER for entity extraction
+
+**Complexity**: O(n) where n=document length
 
 ### External Libraries
 
@@ -709,13 +788,25 @@ npm run build
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) file for details.
 
-## Support
+## Support & Contributing
 
-For questions or issues:
-- Check this documentation first
-- Review [ENGINEERING_DOCUMENTATION.md](ENGINEERING_DOCUMENTATION.md) for technical details
-- Open an issue on GitHub for bugs or feature requests
+### Getting Help
+- **Check this documentation first** - Most questions are answered here
+- **Open an issue on GitHub** for bugs or feature requests
+- **Review the [README.md](README.md)** for project overview
+
+### Contributing
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with clear commit messages
+4. Submit a pull request
+
+### Contact
+For questions or suggestions, open an issue on the GitHub repository.
 
 ---
 
 **Built for job seekers worldwide** 🌍
+
+*Last updated: February 2026*

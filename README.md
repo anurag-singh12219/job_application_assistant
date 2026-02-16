@@ -12,8 +12,7 @@ A **production-ready, full-stack application** that combines advanced algorithms
 
 ## 📚 Documentation
 
-- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Complete user guide with setup, API reference, and usage examples
-- **[ENGINEERING_DOCUMENTATION.md](ENGINEERING_DOCUMENTATION.md)** - Technical deep-dive into algorithms and implementation
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Complete guide with setup, API reference, algorithms, and usage
 - **[QUICK_START.md](QUICK_START.md)** - 5-minute installation guide
 
 ---
@@ -33,7 +32,7 @@ The project implements multiple sophisticated algorithms for job matching and re
 7. **Live API Integration** - Adzuna Jobs API (2M+ real job listings)
 8. **Linear Regression** - Salary estimation based on experience and location
 
-**See [ENGINEERING_DOCUMENTATION.md](ENGINEERING_DOCUMENTATION.md) for detailed algorithm analysis.**
+**See [DOCUMENTATION.md](DOCUMENTATION.md) for detailed algorithm implementation and code examples.**
 
 ---
 
@@ -254,29 +253,14 @@ job_application_assistant/
 │   │   ├── api/backend.js              # API client
 │   │   └── App.jsx                     # Main app
 │   └── package.json
-├── ENGINEERING_DOCUMENTATION.md         # Algorithm analysis & proofs
-├── .gitignore                          # Git ignore rules
-└── README.md                           # This file
+├── DOCUMENTATION.md                 # Complete technical documentation
+├── .gitignore                       # Git ignore rules
+└── README.md                        # This file
 ```
 
 ---
 
-## 🔬 Engineering Documentation
-
-### Core Algorithms Explained
-
-For detailed algorithm analysis, complexity calculations, and engineering decisions:
-
-📘 **[ENGINEERING_DOCUMENTATION.md](ENGINEERING_DOCUMENTATION.md)**
-
-Includes:
-- TF-IDF implementation details
-- Fuzzy string matching algorithms
-- Multi-factor scoring mathematics
-- Complexity analysis (Big O notation)
-- Engineering trade-offs and decisions
-
-### Key Metrics
+## 📊 Key Metrics
 
 | Component | Lines of Code | External Libraries | LLM Usage | Algorithm Type |
 |-----------|--------------|-------------------|-----------|----------------|
@@ -461,7 +445,7 @@ If you want to understand the algorithms used:
 
 For questions or issues:
 - Open an issue on GitHub
-- Check [ENGINEERING_DOCUMENTATION.md](ENGINEERING_DOCUMENTATION.md) for technical details
+- Check [DOCUMENTATION.md](DOCUMENTATION.md) for complete technical details
 
 ---
 
