@@ -329,62 +329,67 @@
 
 @media (max-width: 480px) {
   .job-search-page {
-    padding: 6px;
+    padding: 5px;
   }
   
   .search-card {
-    padding: 8px;
+    padding: 6px;
+    border-radius: 10px;
   }
   
   .search-card h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.6rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
   }
   
   .form-group {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
   
   .form-group label {
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
   }
   
   .form-group input,
   .form-group select {
-    font-size: 0.75rem;
-    padding: 0.5rem;
+    font-size: 0.7rem;
+    padding: 0.4rem;
+    border-radius: 6px;
   }
   
   .search-btn {
-    font-size: 0.75rem;
-    padding: 0.6rem;
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    border-radius: 6px;
   }
   
   .job-card {
-    padding: 0.6rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+    border-radius: 8px;
   }
   
   .job-card h3 {
-    font-size: 0.85rem;
-    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
   }
   
   .job-card p {
-    font-size: 0.7rem;
-    line-height: 1.4;
-    margin-bottom: 0.3rem;
+    font-size: 0.65rem;
+    line-height: 1.35;
+    margin-bottom: 0.25rem;
   }
   
   .job-location,
   .job-type,
   .job-salary {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
   
   .apply-btn {
-    font-size: 0.7rem;
-    padding: 0.45rem 0.7rem;
+    font-size: 0.65rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
   }
 }

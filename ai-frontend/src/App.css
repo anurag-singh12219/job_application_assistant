@@ -483,7 +483,7 @@ body {
   }
 }
 
-/* Mobile (480px and below) - Ultra Compact */
+/* Mobile (480px and below) - Micro Compact */
 @media (max-width: 480px) {
   .app-container {
     margin-top: 0;
@@ -495,101 +495,106 @@ body {
   }
   
   .home-view {
-    padding: 0.5rem;
+    padding: 0.35rem;
   }
 
   .home-header {
-    padding: 0.5rem 0;
-    margin-bottom: 0.65rem;
+    padding: 0.4rem 0;
+    margin-bottom: 0.45rem;
+    border-radius: 12px;
   }
 
   .home-header h1 {
-    font-size: 1.15rem;
-    margin-bottom: 0.35rem;
-    line-height: 1.3;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.25;
   }
 
   .home-header p {
-    font-size: 0.75rem;
-    line-height: 1.35;
+    font-size: 0.65rem;
+    line-height: 1.3;
   }
 
   .feature-tags {
     flex-direction: column;
-    gap: 0.3rem;
-    margin: 0.75rem 0 0.85rem 0;
+    gap: 0.25rem;
+    margin: 0.5rem 0 0.6rem 0;
   }
 
   .feature-tag {
     width: 100%;
     justify-content: center;
-    font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
+    font-size: 0.6rem;
+    padding: 0.25rem 0.5rem;
   }
 
   .quick-start {
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.85rem;
   }
 
   .quick-start h2 {
-    font-size: 1.05rem;
-    margin-bottom: 0.65rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.45rem;
   }
 
   .quick-start-grid {
     grid-template-columns: 1fr;
-    gap: 0.55rem;
+    gap: 0.4rem;
   }
 
   .quick-start-card {
-    padding: 0.7rem 0.6rem;
+    padding: 0.5rem 0.45rem;
+    border-radius: 10px;
   }
 
   .quick-start-card .card-icon {
-    font-size: 1.4rem;
-    margin-bottom: 0.35rem;
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
   }
 
   .quick-start-card h3 {
-    font-size: 0.85rem;
-    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
   }
 
   .quick-start-card p {
-    font-size: 0.7rem;
-    margin-bottom: 0.5rem;
-    line-height: 1.35;
+    font-size: 0.6rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
   }
 
   .stats-section {
     grid-template-columns: 1fr;
-    padding: 0.6rem;
-    margin: 0.75rem 0;
-    gap: 0.5rem;
+    padding: 0.5rem;
+    margin: 0.6rem 0;
+    gap: 0.4rem;
+    border-radius: 12px;
   }
 
   .stat-number {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .stat-label {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 
   .cta-section {
-    padding: 0.85rem 0.6rem;
-    margin-top: 0.75rem;
+    padding: 0.65rem 0.5rem;
+    margin-top: 0.6rem;
+    border-radius: 12px;
   }
 
   .cta-section h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.65rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
   }
 
   .btn-primary-lg {
-    padding: 0.65rem 1rem;
-    font-size: 0.75rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.7rem;
     width: 100%;
+    border-radius: 8px;
   }
 }
 

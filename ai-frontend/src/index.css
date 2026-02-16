@@ -146,27 +146,28 @@ a:hover {
 
 @media (max-width: 480px) {
   html {
-    font-size: 12px;
+    font-size: 11px;
   }
   
   .form-group {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
   
   .form-group label {
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
   }
   
   .form-group input,
   .form-group textarea,
   .form-group select {
-    padding: 0.5rem;
-    font-size: 0.75rem;
+    padding: 0.4rem;
+    font-size: 0.7rem;
+    border-radius: 6px;
   }
   
   .page-header h1 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
   
   .page-header p {

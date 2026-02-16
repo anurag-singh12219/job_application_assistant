@@ -274,87 +274,93 @@
 
 @media (max-width: 480px) {
   .salary-page {
-    padding: 6px;
+    padding: 5px;
   }
   
   .salary-form-card {
-    padding: 8px;
+    padding: 6px;
+    border-radius: 10px;
   }
   
   .salary-form-card h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.6rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
   }
   
   .form-group {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
   
   .form-group label {
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
   }
   
   .form-group input,
   .form-group select {
-    font-size: 0.75rem;
-    padding: 0.5rem;
+    font-size: 0.7rem;
+    padding: 0.4rem;
+    border-radius: 6px;
   }
   
   .insights-btn {
-    font-size: 0.75rem;
-    padding: 0.6rem;
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    border-radius: 6px;
   }
   
   .salary-range-card {
-    padding: 8px;
+    padding: 6px;
+    border-radius: 10px;
   }
   
   .salary-range-card h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.6rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
   }
   
   .salary-value {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   .salary-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
   
   .advice-card,
   .factors-card {
-    padding: 8px;
+    padding: 6px;
+    border-radius: 10px;
   }
   
   .advice-card h2,
   .factors-card h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
   }
   
   .advice-card p,
   .factors-card ul {
-    font-size: 0.7rem;
-    line-height: 1.4;
+    font-size: 0.65rem;
+    line-height: 1.35;
   }
   
   .tips-grid {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   
   .tip-card {
-    padding: 0.6rem;
+    padding: 0.5rem;
+    border-radius: 8px;
   }
   
   .tip-card h3 {
-    font-size: 0.8rem;
-    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
   }
   
   .tip-card p {
-    font-size: 0.7rem;
-    line-height: 1.4;
+    font-size: 0.65rem;
+    line-height: 1.35;
   }
 }
