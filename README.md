@@ -81,31 +81,33 @@ Creates customized cover letters based on resume content and job descriptions. U
 ## 📸 Demo & Screenshots
 
 ### 🏠 Home Dashboard
-![Dashboard](assets/screenshots/01-dashboard.png)
+![Dashboard](assets/screenshots/Screenshot_1.png)
+![Dashboard](assets/screenshots/Screenshot_2.png)
 *Clean interface with quick-start cards for all career tools*
 
 ### 📄 Resume Analysis with ATS Scoring  
-![Resume Analysis](assets/screenshots/02-resume-analysis.png)
+![Resume Analysis](assets/screenshots/Screenshot_3.png)
 *TF-IDF algorithm scores resume - detailed breakdown of matched skills and recommendations*
 
 ### 🔍 Job Matching Algorithm in Action
-![Job Matching](assets/screenshots/03-job-matching.png)
+![Job Matching](assets/screenshots/Screenshot_9.png)
 *Multi-factor scoring matches your profile to 2M+ live jobs from Adzuna API*
 
 ### 💬 Interview Preparation
-![Interview Prep](assets/screenshots/04-interview-prep.png)
+![Interview Prep](assets/screenshots/Screenshot_4.png)
 *Role-specific technical and behavioral questions with STAR framework guidance*
 
 ### 💰 Salary Negotiation Calculator
-![Salary Negotiation](assets/screenshots/05-salary-negotiation.png)
+![Salary Negotiation](assets/screenshots/Screenshot_7.png)
+![Salary Negotiation](assets/screenshots/Screenshot_8.png)
 *Market-based salary estimation - see skill premiums and negotiation strategies*
 
 ### 🤖 AI Career Chat Interface  
-![Chat Interface](assets/screenshots/06-chat-interface.png)
+![Chat Interface](assets/screenshots/Screenshot_10.png)
 *Conversational AI for career questions - upload resume for personalized advice*
 
 ### 📡 Interactive API Documentation
-![API Docs](assets/screenshots/07-api-docs.png)
+![API Docs](assets/screenshots/Screenshot_11.png)
 *FastAPI Swagger UI - test all 9 endpoints directly from browser*
 
 ---
