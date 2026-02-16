@@ -3,6 +3,10 @@ import axios from "axios";
 // Use environment variable for production, fallback to localhost for development
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
+// Debug: Log the API URL being used
+console.log("[Backend Config] API URL:", API_URL);
+console.log("[Backend Config] Environment:", import.meta.env.MODE);
+
 const API = axios.create({
   baseURL: API_URL
 });
