@@ -202,7 +202,12 @@
   }
   
   .cover-letter-page {
-    padding: 20px;
+    padding: 20px 15px;
+  }
+  
+  .form-card,
+  .preview-card {
+    padding: 25px 20px;
   }
 }
 

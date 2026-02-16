@@ -458,12 +458,16 @@
 
 @media (max-width: 1024px) {
   .resume-analysis-page {
-    padding: 25px;
+    padding: 25px 20px;
   }
   
   .summary-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+  }
+  
+  .analysis-form-container {
+    gap: 20px;
   }
 }
 

@@ -238,11 +238,20 @@
 
 @media (max-width: 1024px) {
   .interview-prep-page {
-    padding: 20px;
+    padding: 20px 15px;
   }
   
   .form-row {
     gap: 15px;
+  }
+  
+  .prep-form-card {
+    padding: 25px 20px;
+  }
+  
+  .questions-section,
+  .tips-section {
+    padding: 25px 20px;
   }
 }
 

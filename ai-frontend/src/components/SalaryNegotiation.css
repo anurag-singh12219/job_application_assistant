@@ -201,7 +201,7 @@
 
 @media (max-width: 1024px) {
   .salary-page {
-    padding: 20px;
+    padding: 20px 15px;
   }
   
   .salary-range {
@@ -210,6 +210,14 @@
   
   .tips-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .salary-form-card {
+    padding: 25px 20px;
+  }
+  
+  .salary-range-card {
+    padding: 35px 25px;
   }
 }
 

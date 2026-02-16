@@ -289,7 +289,15 @@
 
 @media (max-width: 1024px) {
   .job-search-page {
-    padding: 20px;
+    padding: 20px 15px;
+  }
+  
+  .search-card {
+    padding: 25px 20px;
+  }
+  
+  .results-section {
+    padding: 20px 15px;
   }
 }
 
