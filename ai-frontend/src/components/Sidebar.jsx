@@ -14,16 +14,23 @@ export default function Sidebar({ activeView, setActiveView }) {
     { id: "chat", icon: "🤖", label: "AI Chat" }
   ];
 
+  const handleNewChat = () => {
+    setActiveView("chat");
+    // Reset chat history if needed
+    window.dispatchEvent(new CustomEvent('newChat'));
+  };
+
   return (
     <aside className={`sidebar ${isExpanded ? "expanded" : "collapsed"}`}>
       <div className="sidebar-header">
         <div className="logo">
-          <span className="logo-icon">🤖</span>
-          {isExpanded && <span className="logo-text">JobBot</span>}
+          <span className="logo-icon">✨</span>
+          {isExpanded && <span className="logo-text">JobAI Analytics</span>}
         </div>
         <button 
           className="toggle-btn"
           onClick={() => setIsExpanded(!isExpanded)}
+          title={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
         >
           {isExpanded ? "◀" : "▶"}
         </button>
@@ -31,10 +38,11 @@ export default function Sidebar({ activeView, setActiveView }) {
 
       <button 
         className="new-chat-btn"
-        onClick={() => setActiveView("chat")}
+        onClick={handleNewChat}
+        title="Start a new analysis session"
       >
         <span>+</span>
-        {isExpanded && <span>New Chat</span>}
+        {isExpanded && <span>New Analysis</span>}
       </button>
 
       <nav className="sidebar-nav">
@@ -43,6 +51,7 @@ export default function Sidebar({ activeView, setActiveView }) {
             key={item.id}
             className={`nav-item ${activeView === item.id ? "active" : ""}`}
             onClick={() => setActiveView(item.id)}
+            title={item.label}
           >
             <span className="nav-icon">{item.icon}</span>
             {isExpanded && <span className="nav-label">{item.label}</span>}
@@ -55,8 +64,8 @@ export default function Sidebar({ activeView, setActiveView }) {
           <span className="ai-icon">⚡</span>
           {isExpanded && (
             <div>
-              <div className="ai-badge-title">AI-Powered</div>
-              <div className="ai-badge-text">Advanced career assistance with AI</div>
+              <div className="ai-badge-title">Powered By</div>
+              <div className="ai-badge-text">OpenAI GPT-4 & Advanced AI</div>
             </div>
           )}
         </div>
@@ -64,3 +73,4 @@ export default function Sidebar({ activeView, setActiveView }) {
     </aside>
   );
 }
+
