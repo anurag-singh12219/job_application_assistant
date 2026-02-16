@@ -28,6 +28,7 @@ Complete guide to deploy your application online for free.
    - **Branch**: `master`
    - **Root Directory**: `backend`
    - **Runtime**: `Python 3`
+   - **Python Version**: `3.12.8` (Important: spaCy doesn't support 3.14 yet)
    - **Build Command**: `pip install -r requirements.txt && python -m spacy download en_core_web_sm`
    - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
    - **Plan**: Free
@@ -206,6 +207,9 @@ Use a free service like UptimeRobot:
 - Check logs in Render dashboard
 - Verify all dependencies in requirements.txt
 - Ensure spaCy model downloads in build command
+- **Python version error**: Make sure Python 3.12 is selected (not 3.14)
+  - Render auto-detects from `runtime.txt` file
+  - spaCy is not compatible with Python 3.14 yet
 
 **Frontend can't connect to backend:**
 - Check CORS settings in main.py
