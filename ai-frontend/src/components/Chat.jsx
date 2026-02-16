@@ -6,8 +6,7 @@ export default function Chat({ chatHistory, setChatHistory }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const [uploadedFileName, setUploadedFileName] = useState("");
+  const [uploadedFiles, setUploadedFiles] = useState([]); // Changed: support multiple files
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -20,55 +19,79 @@ export default function Chat({ chatHistory, setChatHistory }) {
     scrollToBottom();
   }, [chatHistory]);
 
+  // Handle multiple file uploads
   const handleFileUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setUploadedFile(file);
-      setUploadedFileName(file.name);
+    const files = e.target.files;
+    if (files) {
+      const newFiles = Array.from(files).map(file => ({
+        file,
+        name: file.name,
+        id: Date.now() + Math.random() // Simple unique ID
+      }));
+      setUploadedFiles(prev => [...prev, ...newFiles]);
     }
+    // Reset file input
+    e.target.value = "";
+  };
+
+  // Remove a specific file from the list
+  const removeFile = (fileId) => {
+    setUploadedFiles(prev => prev.filter(f => f.id !== fileId));
   };
 
   const handleSend = async (text = null) => {
     const typed = text || input.trim();
-    const message = typed || (uploadedFile ? "Please analyze the uploaded file and provide career advice." : "");
-    if (!message && !uploadedFile) return;
+    const message = typed || (uploadedFiles.length > 0 ? "Please analyze the uploaded files and provide career advice." : "");
+    if (!message && uploadedFiles.length === 0) return;
 
-    // Add user message
+    // Add user message with file references
     const userMessage = { 
       role: "user", 
       content: message,
-      fileName: uploadedFileName || null,
+      fileNames: uploadedFiles.map(f => f.name) || [],
       timestamp: new Date() 
     };
     const newHistory = [...chatHistory, userMessage];
     setChatHistory(newHistory);
     setInput("");
-    setUploadedFile(null);
-    setUploadedFileName("");
     setIsSending(true);
 
     try {
       // Get AI response from backend
       let response;
-      if (uploadedFile) {
+      
+      if (uploadedFiles.length > 0) {
+        // Send first file with all files' context
         const formData = new FormData();
-        formData.append("file", uploadedFile);
+        formData.append("file", uploadedFiles[0].file);
         formData.append("query", message);
+        
+        // Add additional files as context if supported by backend
+        uploadedFiles.slice(1).forEach((fileObj, idx) => {
+          formData.append(`additional_file_${idx}`, fileObj.file);
+        });
+        
         response = await getCareerAdviceWithFile(formData);
       } else {
         response = await getCareerAdvice({ query: message });
       }
+      
       const aiResponse = {
         role: "assistant",
         content: response.advice || response.response || getDefaultResponse(message),
+        fileNames: uploadedFiles.map(f => f.name),
         timestamp: new Date()
       };
       setChatHistory(prev => [...prev, aiResponse]);
+      
+      // Clear files after successful response
+      setUploadedFiles([]);
     } catch (error) {
       console.error("Chat error:", error);
       const fallbackResponse = {
         role: "assistant",
         content: getDefaultResponse(message),
+        fileNames: uploadedFiles.map(f => f.name),
         timestamp: new Date()
       };
       setChatHistory(prev => [...prev, fallbackResponse]);
@@ -185,27 +208,32 @@ export default function Chat({ chatHistory, setChatHistory }) {
       </div>
 
       <div className="chat-input-area">
-        {uploadedFileName && (
-          <div className="file-indicator">
-            📎 <span>{uploadedFileName}</span>
-            <button 
-              className="file-remove"
-              onClick={() => {
-                setUploadedFile(null);
-                setUploadedFileName("");
-              }}
-            >
-              ✕
-            </button>
+        {uploadedFiles.length > 0 && (
+          <div className="files-list">
+            <div className="files-label">📎 Files ({uploadedFiles.length}):</div>
+            <div className="files-container">
+              {uploadedFiles.map(fileObj => (
+                <div key={fileObj.id} className="file-item">
+                  <span className="file-name">{fileObj.name}</span>
+                  <button 
+                    className="file-remove"
+                    onClick={() => removeFile(fileObj.id)}
+                    title="Remove file"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         )}
         <div className="input-controls">
           <button
             className="file-upload-btn"
             onClick={() => fileInputRef.current?.click()}
-            title="Upload resume or document for AI context"
+            title="Upload one or more files for AI context"
           >
-            📎 Upload
+            📎 Add File{uploadedFiles.length > 0 ? 's' : ''}
           </button>
           <input
             ref={fileInputRef}
@@ -213,6 +241,7 @@ export default function Chat({ chatHistory, setChatHistory }) {
             hidden
             onChange={handleFileUpload}
             accept=".pdf,.txt,.doc,.docx"
+            multiple
           />
           <textarea
             ref={inputRef}
@@ -226,7 +255,7 @@ export default function Chat({ chatHistory, setChatHistory }) {
           />
           <button 
             onClick={() => handleSend()} 
-            disabled={!input.trim() || isSending}
+            disabled={!input.trim() && uploadedFiles.length === 0 || isSending}
             className={`send-btn ${isSending ? 'sending' : ''}`}
           >
             {isSending ? '⏳ Thinking...' : '📤 Send'}

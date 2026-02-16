@@ -411,50 +411,83 @@ Keep the response between 150-300 words. Use professional but friendly tone."""
 @app.post("/chat/with-file")
 async def career_chat_with_file(
     file: UploadFile = File(...),
-    query: str = Form("")
+    query: str = Form(""),
+    additional_file_0: Optional[UploadFile] = File(None),
+    additional_file_1: Optional[UploadFile] = File(None),
+    additional_file_2: Optional[UploadFile] = File(None),
 ):
-    """AI Career Chat endpoint that uses uploaded file content"""
+    """AI Career Chat endpoint that supports multiple uploaded files"""
     try:
         from services.ai_service import ai_service
 
-        text = extract_text(file.file)
-        if not text:
-            raise HTTPException(status_code=400, detail="Unable to read text from the uploaded file")
+        # Collect all files
+        all_files = [file]
+        for i in range(3):
+            additional = locals().get(f'additional_file_{i}')
+            if additional:
+                all_files.append(additional)
 
-        skills = extract_skills(text)
-        excerpt = text[:1500]
-        question = query.strip() or "Please analyze the uploaded file and provide career advice based on its content."
+        # Extract text from all files
+        all_texts = []
+        all_skills = set()
+        file_summaries = []
+        
+        for i, uploaded_file in enumerate(all_files):
+            try:
+                text = extract_text(uploaded_file.file)
+                if text:
+                    all_texts.append(text)
+                    skills = extract_skills(text)
+                    all_skills.update(skills)
+                    file_summaries.append(f"📄 {uploaded_file.filename}: {len(text)} chars")
+            except Exception as e:
+                print(f"Error processing file {i}: {e}")
+                continue
 
-        prompt = f"""You are an expert career coach. The user uploaded a file and asked a question.
+        if not all_texts:
+            raise HTTPException(status_code=400, detail="Unable to read text from any uploaded files")
+
+        # Combine excerpts (max 2000 chars total for efficiency)
+        combined_excerpt = " | ".join(all_texts)[:2500]
+        question = query.strip() or "Please analyze the uploaded files and provide career advice based on their content."
+        
+        file_context = "\n".join(file_summaries) if len(all_files) > 1 else f"📄 {all_files[0].filename}"
+
+        prompt = f"""You are an expert career coach. The user uploaded {len(all_files)} file(s) and asked for advice.
+
+FILES PROVIDED:
+{file_context}
 
 User Question:
 {question}
 
-Extracted Skills (if any): {', '.join(skills[:20])}
+Extracted Skills from all files: {', '.join(list(all_skills)[:25])}
 
-File Excerpt:
-{excerpt}
+Combined File Content (excerpt):
+{combined_excerpt}
 
-Provide a helpful, realistic response grounded in the file content. Avoid placeholders.
+Provide a helpful, realistic response grounded in the uploaded files' content. Reference the files where relevant. Avoid placeholders.
 """
 
         advice = ai_service.generate_completion(
             prompt=prompt,
             max_tokens=500,
             temperature=0.6,
-            system_message="You are a practical, supportive career coach. Use the uploaded file context in your response."
+            system_message="You are a practical, supportive career coach. Use the uploaded file content in your response. Reference which files informed your advice when relevant."
         )
 
         return {
             "advice": advice,
             "response": advice,
-            "extracted_skills": skills[:25]
+            "extracted_skills": list(all_skills)[:25],
+            "files_processed": len(all_texts),
+            "file_names": [f.filename for f in all_files[:len(all_texts)]]
         }
     except HTTPException:
         raise
     except Exception as e:
         print(f"Chat file error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to process uploaded file")
+        raise HTTPException(status_code=500, detail="Failed to process uploaded files")
 
 
 @app.get("/health")

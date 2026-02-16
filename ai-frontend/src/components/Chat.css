@@ -256,6 +256,65 @@
   gap: 12px;
 }
 
+/* New: Multi-file support */
+.files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.files-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.files-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e9d5ff 100%);
+  border-left: 3px solid #667eea;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #334155;
+  max-width: 100%;
+}
+
+.file-name {
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.file-remove {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 4px;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.file-remove:hover {
+  color: #ef4444;
+}
+
+/* Deprecated: Old single file indicator - replaced with files-list */
 .file-indicator {
   display: flex;
   align-items: center;
@@ -273,20 +332,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.file-remove {
-  background: transparent;
-  border: none;
-  color: #94a3b8;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0 4px;
-  transition: color 0.2s;
-}
-
-.file-remove:hover {
-  color: #ef4444;
 }
 
 .input-controls {
