@@ -10,6 +10,12 @@
 
 A **production-ready, full-stack application** that combines advanced algorithms with AI to provide comprehensive career guidance. This project demonstrates real engineering work with information retrieval, NLP, and algorithmic problem-solving.
 
+## 📚 Documentation
+
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Complete user guide with setup, API reference, and usage examples
+- **[ENGINEERING_DOCUMENTATION.md](ENGINEERING_DOCUMENTATION.md)** - Technical deep-dive into algorithms and implementation
+- **[QUICK_START.md](QUICK_START.md)** - 5-minute installation guide
+
 ---
 
 ## 🔬 Core Algorithms & Technical Features
