@@ -287,12 +287,71 @@
   color: #64748b;
 }
 
+@media (max-width: 1024px) {
+  .job-search-page {
+    padding: 20px;
+  }
+}
+
 @media (max-width: 768px) {
+  .job-search-page {
+    padding: 15px;
+  }
+  
   .search-row {
     grid-template-columns: 1fr;
   }
   
   .filters-row {
     grid-template-columns: 1fr;
+  }
+  
+  .search-card {
+    padding: 20px;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .job-card {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .job-search-page {
+    padding: 10px;
+  }
+  
+  .search-card {
+    padding: 15px;
+  }
+  
+  .search-card h2 {
+    font-size: 1.1rem;
+  }
+  
+  .form-group label {
+    font-size: 13px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    font-size: 13px;
+    padding: 10px;
+  }
+  
+  .search-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+  
+  .job-card {
+    padding: 12px;
+  }
+  
+  .job-card h3 {
+    font-size: 1rem;
   }
 }

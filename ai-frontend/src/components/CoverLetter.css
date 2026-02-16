@@ -200,4 +200,63 @@
   .cover-letter-grid {
     grid-template-columns: 1fr;
   }
+  
+  .cover-letter-page {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cover-letter-page {
+    padding: 15px;
+  }
+  
+  .form-card,
+  .preview-card {
+    padding: 20px;
+  }
+  
+  .form-card h2,
+  .preview-card h2 {
+    font-size: 1.2rem;
+  }
+  
+  .form-group label {
+    font-size: 13px;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover-letter-page {
+    padding: 10px;
+  }
+  
+  .form-card,
+  .preview-card {
+    padding: 15px;
+  }
+  
+  .form-card h2,
+  .preview-card h2 {
+    font-size: 1.1rem;
+  }
+  
+  .generate-btn,
+  .copy-btn,
+  .download-btn {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+  
+  .letter-content {
+    font-size: 13px;
+    padding: 15px;
+  }
 }

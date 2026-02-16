@@ -456,6 +456,17 @@
   font-style: italic;
 }
 
+@media (max-width: 1024px) {
+  .resume-analysis-page {
+    padding: 25px;
+  }
+  
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
 @media (max-width: 768px) {
   .resume-analysis-page {
     padding: 20px;
@@ -485,5 +496,95 @@
 
   .summary-grid {
     grid-template-columns: 1fr 1fr;
+  }
+  
+  .summary-card {
+    padding: 15px;
+  }
+  
+  .score-percentile {
+    font-size: 2.2rem;
+  }
+  
+  .card-value {
+    font-size: 1.5rem;
+  }
+  
+  .details-section {
+    padding: 20px;
+  }
+  
+  .details-section h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-analysis-page {
+    padding: 15px;
+  }
+  
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .form-card {
+    padding: 15px;
+  }
+  
+  .form-card h2 {
+    font-size: 1.1rem;
+  }
+  
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .summary-card {
+    padding: 15px;
+  }
+  
+  .score-percentile {
+    font-size: 1.8rem;
+  }
+  
+  .ats-score-display {
+    margin-bottom: 10px;
+  }
+  
+  .card-value {
+    font-size: 1.3rem;
+  }
+  
+  .card-label {
+    font-size: 0.75rem;
+  }
+  
+  .card-status {
+    font-size: 0.7rem;
+  }
+  
+  .details-section {
+    padding: 15px;
+  }
+  
+  .details-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .skill-badge {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  
+  .feedback-box {
+    padding: 15px;
+    font-size: 13px;
+  }
+  
+  .job-match-card {
+    padding: 15px;
   }
 }

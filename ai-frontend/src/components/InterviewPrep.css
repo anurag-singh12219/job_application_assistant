@@ -12,6 +12,13 @@
   margin-bottom: 30px;
 }
 
+.prep-form-card h2 {
+  font-size: 1.4rem;
+  color: #1e293b;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -229,8 +236,90 @@
   font-weight: bold;
 }
 
+@media (max-width: 1024px) {
+  .interview-prep-page {
+    padding: 20px;
+  }
+  
+  .form-row {
+    gap: 15px;
+  }
+}
+
 @media (max-width: 768px) {
+  .interview-prep-page {
+    padding: 15px;
+  }
+  
   .form-row {
     grid-template-columns: 1fr;
+  }
+  
+  .prep-form-card {
+    padding: 20px;
+  }
+  
+  .prep-form-card h2 {
+    font-size: 1.2rem;
+  }
+  
+  .questions-section,
+  .tips-section {
+    padding: 20px;
+  }
+  
+  .question-header {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .question-text {
+    font-size: 14px;
+  }
+  
+  .question-full {
+    padding: 15px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .interview-prep-page {
+    padding: 10px;
+  }
+  
+  .prep-form-card {
+    padding: 15px;
+  }
+  
+  .prep-form-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-size: 13px;
+  }
+  
+  .form-group input,
+  .prep-form-card textarea {
+    font-size: 13px;
+    padding: 10px;
+  }
+  
+  .prep-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+  
+  .question-number {
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
+  }
+  
+  .questions-section h2,
+  .tips-section h2 {
+    font-size: 1.1rem;
   }
 }
