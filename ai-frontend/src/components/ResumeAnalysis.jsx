@@ -63,10 +63,12 @@ export default function ResumeAnalysis() {
           {/* Summary Cards */}
           <div className="summary-grid">
             <div className="summary-card score-high">
-              <div className="card-value">{analysis.ats_score}</div>
-              <div className="card-label">ATS Score</div>
+              <div className="ats-score-display">
+                <div className="score-percentile">{Math.round(analysis.ats_score)}/100</div>
+              </div>
+              <div className="card-label">ATS Compatibility Score</div>
               <div className="card-status">
-                {analysis.ats_score >= 80 ? "Excellent" : analysis.ats_score >= 60 ? "Good" : "Needs Work"}
+                {analysis.ats_score >= 80 ? "✅ Excellent" : analysis.ats_score >= 60 ? "⚡ Good" : "⚠️ Needs Work"}
               </div>
             </div>
 
