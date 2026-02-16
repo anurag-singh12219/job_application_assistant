@@ -240,40 +240,49 @@
 
 @media (max-width: 480px) {
   .cover-letter-page {
-    padding: 8px;
+    padding: 6px;
   }
   
   .form-card,
   .preview-card {
-    padding: 12px;
+    padding: 8px;
   }
   
   .form-card h2,
   .preview-card h2 {
-    font-size: 1rem;
-    margin-bottom: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .form-group {
+    margin-bottom: 0.6rem;
   }
   
   .form-group label {
-    font-size: 12px;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
   }
   
   .form-group input,
   .form-group textarea {
-    font-size: 12px;
-    padding: 9px;
+    font-size: 0.75rem;
+    padding: 0.5rem;
   }
   
   .generate-btn,
   .copy-btn,
   .download-btn {
-    font-size: 13px;
-    padding: 9px 13px;
+    font-size: 0.75rem;
+    padding: 0.55rem 0.8rem;
   }
   
   .letter-content {
-    font-size: 12px;
-    padding: 12px;
-    line-height: 1.5;
+    font-size: 0.7rem;
+    padding: 0.6rem;
+    line-height: 1.4;
+  }
+  
+  .letter-content p {
+    margin-bottom: 0.5rem;
   }
 }

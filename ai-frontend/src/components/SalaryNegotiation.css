@@ -274,60 +274,87 @@
 
 @media (max-width: 480px) {
   .salary-page {
-    padding: 8px;
+    padding: 6px;
   }
   
   .salary-form-card {
-    padding: 12px;
+    padding: 8px;
   }
   
   .salary-form-card h2 {
-    font-size: 1rem;
-    margin-bottom: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .form-group {
+    margin-bottom: 0.6rem;
   }
   
   .form-group label {
-    font-size: 12px;
-    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
   }
   
   .form-group input,
   .form-group select {
-    font-size: 12px;
-    padding: 9px;
+    font-size: 0.75rem;
+    padding: 0.5rem;
   }
   
   .insights-btn {
-    font-size: 13px;
-    padding: 11px;
+    font-size: 0.75rem;
+    padding: 0.6rem;
   }
   
   .salary-range-card {
-    padding: 12px;
-  }
-  
-  .tips-grid {
-    gap: 10px;
-  }
-  
-  .salary-range-card {
-    padding: 20px;
+    padding: 8px;
   }
   
   .salary-range-card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
   }
   
   .salary-value {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
   
   .salary-label {
-    font-size: 12px;
+    font-size: 0.7rem;
+  }
+  
+  .advice-card,
+  .factors-card {
+    padding: 8px;
+  }
+  
+  .advice-card h2,
+  .factors-card h2 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .advice-card p,
+  .factors-card ul {
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+  
+  .tips-grid {
+    gap: 0.5rem;
   }
   
   .tip-card {
-    padding: 20px;
+    padding: 0.6rem;
+  }
+  
+  .tip-card h3 {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .tip-card p {
+    font-size: 0.7rem;
+    line-height: 1.4;
   }
 }

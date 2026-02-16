@@ -329,46 +329,62 @@
 
 @media (max-width: 480px) {
   .job-search-page {
-    padding: 8px;
+    padding: 6px;
   }
   
   .search-card {
-    padding: 12px;
+    padding: 8px;
   }
   
   .search-card h2 {
-    font-size: 1rem;
-    margin-bottom: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .form-group {
+    margin-bottom: 0.6rem;
   }
   
   .form-group label {
-    font-size: 12px;
-    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
   }
   
   .form-group input,
   .form-group select {
-    font-size: 12px;
-    padding: 9px;
+    font-size: 0.75rem;
+    padding: 0.5rem;
   }
   
   .search-btn {
-    font-size: 13px;
-    padding: 11px;
+    font-size: 0.75rem;
+    padding: 0.6rem;
   }
   
   .job-card {
-    padding: 11px;
-    margin-bottom: 10px;
-  }
-  
-  .job-card h3 {
-    font-size: 0.95rem;
+    padding: 0.6rem;
     margin-bottom: 0.5rem;
   }
   
+  .job-card h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+  
   .job-card p {
-    font-size: 12px;
-    line-height: 1.45;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+  }
+  
+  .job-location,
+  .job-type,
+  .job-salary {
+    font-size: 0.65rem;
+  }
+  
+  .apply-btn {
+    font-size: 0.7rem;
+    padding: 0.45rem 0.7rem;
   }
 }
