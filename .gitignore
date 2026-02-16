@@ -65,7 +65,7 @@ build/
 .cache/
 
 # Model files (if large)
-*.pkl
+# *.pkl  # Commented out - small models (< 5MB) are committed
 *.h5
 *.pth
 
