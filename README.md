@@ -18,6 +18,18 @@ A **production-ready, full-stack web application** that combines classical algor
 
 ---
 
+## 🌐 Live Demo
+
+**🚀 Try it now - No installation required!**
+
+- **Live App**: https://your-app.vercel.app (Replace with your Vercel URL)
+- **API Backend**: https://your-api.onrender.com (Replace with your Render URL)
+- **API Docs**: https://your-api.onrender.com/docs (Interactive Swagger UI)
+
+*Note: Free tier - first request may take 30 seconds to wake up*
+
+---
+
 ## 📚 Quick Links
 
 **Getting Started:**
