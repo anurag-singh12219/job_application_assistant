@@ -374,51 +374,31 @@ $ curl http://localhost:8000/health
 
 ---
 
-## 🎓 Learning & Understanding Demonstrated
+## 🎓 Key Engineering Decisions
 
-### Skills Learned During This Project:
-1. **Information Retrieval**: TF-IDF, cosine similarity, document ranking
-2. **String Algorithms**: Fuzzy matching, Levenshtein distance approximation
-3. **Graph Algorithms**: Dependency resolution, topological sorting
-4. **Machine Learning**: Linear regression, classification, weighted scoring
-5. **API Design**: RESTful endpoints, error handling, CORS
-6. **NLP**: Entity extraction, text parsing, skill recognition
-7. **Software Engineering**: Modular design, error handling, type hints
+### Algorithm Choices
+1. **TF-IDF for ATS Scoring** - Handles varying document lengths and weighs rare keywords higher, providing more accurate relevance scores than simple keyword counting
+2. **Weighted Composite Scoring** - No single metric captures all aspects of job matching; combining multiple factors (skills, experience, title) provides more holistic evaluation
+3. **Fuzzy String Matching** - Handles skill name variations ("reactjs" vs "react", "nodejs" vs "node.js") without requiring exact matches
+4. **Dependency Graph Resolution** - Shows logical learning prerequisites and optimal skill acquisition order
+5. **Fallback Mechanisms** - Production applications need graceful degradation when external APIs fail or rate limits are hit
 
-### Engineering Decisions Made:
-1. **Why TF-IDF for ATS?** - Handles varying document lengths, weighs rare keywords higher
-2. **Why weighted composite scoring?** - No single metric captures all aspects of job matching
-3. **Why fuzzy matching?** - Handles skill name variations ("reactjs" vs "react")
-4. **Why dependency graphs?** - Shows learning prerequisites logically
-5. **Why fallback mechanisms?** - Production apps need graceful degradation
+### Architecture Decisions
+1. **FastAPI Backend** - Async support, automatic API documentation, and type validation
+2. **Modular Service Design** - Each service (`ats_engine.py`, `skill_gap.py`, etc.) handles one responsibility
+3. **External Library Integration** - Leverages proven libraries (scikit-learn, spaCy) rather than reinventing algorithms
+4. **Error Handling** - Try-except blocks with fallback responses ensure application remains functional
+5. **Type Hints** - Improves code maintainability and catches errors early
 
 ---
 
-## 📝 Conclusion
+## 📚 Further Reading
 
-### This Project Demonstrates:
-✅ **Actual Engineering**: 2000+ lines of algorithmic code  
-✅ **Not Just LLM Prompts**: 65% of code is pure algorithms  
-✅ **Production-Ready**: Error handling, API integration, fallbacks  
-✅ **Learning & Understanding**: Implemented algorithms from scratch  
-✅ **Proper Documentation**: Code comments, type hints, docstrings  
+For implementation details and usage examples, see:
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Complete API reference and user guide
+- **[README.md](README.md)** - Project overview and quick start
+- **[QUICK_START.md](QUICK_START.md)** - Installation instructions
 
-### What Makes This Qualify:
-- ✅ Functional Python implementation (FastAPI backend)
-- ✅ Complex algorithms (TF-IDF, fuzzy matching, composite scoring)
-- ✅ External library integration (scikit-learn, spaCy, pdfplumber)
-- ✅ Live API integration (Adzuna with 2M+ jobs)
-- ✅ Production-ready error handling
-- ✅ Full-stack application (React frontend + Python backend)
-- ✅ Not just documentation - actual working code
 
-### Lines of Evidence:
-1. **GitHub Repository**: Complete codebase with commit history
-2. **Live Servers**: Backend (port 8000) + Frontend (port 5174)
-3. **Test Results**: All modules import, health checks pass
-4. **API Integration**: Live Adzuna API calls with real data
-5. **Algorithmic Depth**: Custom implementations, not just library calls
 
----
 
-**This is engineering work, not copy-paste LLM output.**
