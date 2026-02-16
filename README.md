@@ -78,6 +78,38 @@ Creates customized cover letters based on resume content and job descriptions. U
 
 ---
 
+## 📸 Demo & Screenshots
+
+### 🏠 Home Dashboard
+![Dashboard](assets/screenshots/01-dashboard.png)
+*Clean interface with quick-start cards for all career tools*
+
+### 📄 Resume Analysis with ATS Scoring  
+![Resume Analysis](assets/screenshots/02-resume-analysis.png)
+*TF-IDF algorithm scores resume - detailed breakdown of matched skills and recommendations*
+
+### 🔍 Job Matching Algorithm in Action
+![Job Matching](assets/screenshots/03-job-matching.png)
+*Multi-factor scoring matches your profile to 2M+ live jobs from Adzuna API*
+
+### 💬 Interview Preparation
+![Interview Prep](assets/screenshots/04-interview-prep.png)
+*Role-specific technical and behavioral questions with STAR framework guidance*
+
+### 💰 Salary Negotiation Calculator
+![Salary Negotiation](assets/screenshots/05-salary-negotiation.png)
+*Market-based salary estimation - see skill premiums and negotiation strategies*
+
+### 🤖 AI Career Chat Interface  
+![Chat Interface](assets/screenshots/06-chat-interface.png)
+*Conversational AI for career questions - upload resume for personalized advice*
+
+### 📡 Interactive API Documentation
+![API Docs](assets/screenshots/07-api-docs.png)
+*FastAPI Swagger UI - test all 9 endpoints directly from browser*
+
+---
+
 ## Project Structure
 
 ```
