@@ -1,0 +1,23 @@
+# Render Blueprint for AI Job Application Assistant
+# Deploy backend with: render.yaml
+
+services:
+  # Backend API
+  - type: web
+    name: job-assistant-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python -m spacy download en_core_web_sm
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: GROQ_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: ADZUNA_APP_ID
+        sync: false  # Set manually in Render dashboard
+      - key: ADZUNA_APP_KEY
+        sync: false  # Set manually in Render dashboard
+    healthCheckPath: /health
+    autoDeploy: true

@@ -223,6 +223,40 @@ Full API documentation available at `http://localhost:8000/docs`
 
 ---
 
+## 🌐 Deployment
+
+Want to deploy this project online for public access? We've made it easy!
+
+**📖 Complete Deployment Guide**: See **[DEPLOYMENT.md](DEPLOYMENT.md)** for step-by-step instructions
+
+### Quick Deploy Options:
+
+**Option 1: Render + Vercel (Recommended - Free)**
+- Backend: Deploy on Render.com (free tier)
+- Frontend: Deploy on Vercel.com (free tier)
+- Total cost: $0/month
+- Setup time: ~20 minutes
+
+**Option 2: Railway (Alternative - Free Trial)**
+- Full-stack deployment in one place
+- Auto-detects Python and Node.js
+- Easy environment variable management
+
+**What You'll Get:**
+- ✅ Live public URL anyone can access
+- ✅ Automatic HTTPS certificates
+- ✅ Auto-deploy on git push
+- ✅ Professional hosting for portfolio
+
+**Files Included for Deployment:**
+- `render.yaml` - One-click Render deployment
+- `vercel.json` - Vercel configuration
+- `.env.example` - Environment variable template
+
+**See [DEPLOYMENT.md](DEPLOYMENT.md) for complete instructions with screenshots!**
+
+---
+
 ## Technical Details
 
 ### Algorithms Used
