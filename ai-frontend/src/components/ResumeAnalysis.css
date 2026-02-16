@@ -238,39 +238,42 @@
 }
 
 .summary-card {
-  background: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
-  padding: 25px;
+  padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.summary-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.summary-card.score-high {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   border: none;
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+  transition: all 0.3s ease;
+  color: white;
   position: relative;
   overflow: hidden;
 }
 
-.summary-card.score-high::before {
+.summary-card::before {
   content: '';
   position: absolute;
   top: -50%;
   right: -50%;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   animation: float 6s ease-in-out infinite;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.summary-card.score-high {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.summary-card.score-high:hover {
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
 }
 
 @keyframes float {
@@ -281,26 +284,28 @@
 .ats-score-display {
   position: relative;
   z-index: 1;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .score-percentile {
-  font-size: 3.5rem;
+  font-size: 2.8rem;
   font-weight: 800;
   letter-spacing: -2px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .card-value {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
 }
 
 .card-label {
-  font-size: 1rem;
+  font-size: 0.85rem;
   opacity: 0.95;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-weight: 600;
   letter-spacing: 0.5px;
   position: relative;
@@ -308,7 +313,7 @@
 }
 
 .card-status {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   opacity: 0.85;
   font-weight: 600;
   position: relative;
