@@ -369,7 +369,12 @@ body {
 
 @media (max-width: 768px) {
   .app-container {
-    flex-direction: column;
+    flex-direction: row;
+  }
+  
+  .main-content {
+    margin-left: 70px;
+    width: calc(100% - 70px);
   }
 
   .home-view {
@@ -441,6 +446,11 @@ body {
 }
 
 @media (max-width: 480px) {
+  .main-content {
+    margin-left: 65px;
+    width: calc(100% - 65px);
+  }
+  
   .home-view {
     padding: 1rem;
   }
@@ -826,5 +836,20 @@ button {
   
   .form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Orientation-specific adjustments for sidebar spacing */
+@media (max-width: 768px) and (orientation: landscape) {
+  .main-content {
+    margin-left: 65px;
+    width: calc(100% - 65px);
+  }
+}
+
+@media (max-width: 480px) and (orientation: landscape) {
+  .main-content {
+    margin-left: 60px;
+    width: calc(100% - 60px);
   }
 }
