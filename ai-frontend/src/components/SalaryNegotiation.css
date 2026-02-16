@@ -223,15 +223,16 @@
 
 @media (max-width: 768px) {
   .salary-page {
-    padding: 15px;
+    padding: 12px;
   }
   
   .salary-form-card {
-    padding: 20px;
+    padding: 16px;
   }
   
   .salary-form-card h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
   
   .salary-range {
@@ -243,50 +244,70 @@
   }
   
   .salary-range-card {
-    padding: 25px;
+    padding: 20px;
   }
   
   .salary-value {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
+  }
+  
+  .salary-label {
+    font-size: 0.85rem;
   }
   
   .advice-card,
   .factors-card {
-    padding: 20px;
+    padding: 16px;
+  }
+  
+  .advice-card h2,
+  .factors-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
   
   .tips-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .salary-page {
-    padding: 10px;
+    padding: 8px;
   }
   
   .salary-form-card {
-    padding: 15px;
+    padding: 12px;
   }
   
   .salary-form-card h2 {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    margin-bottom: 12px;
   }
   
   .form-group label {
-    font-size: 13px;
+    font-size: 12px;
+    margin-bottom: 0.35rem;
   }
   
   .form-group input,
   .form-group select {
-    font-size: 13px;
-    padding: 10px;
+    font-size: 12px;
+    padding: 9px;
   }
   
   .insights-btn {
-    font-size: 14px;
+    font-size: 13px;
+    padding: 11px;
+  }
+  
+  .salary-range-card {
     padding: 12px;
+  }
+  
+  .tips-grid {
+    gap: 10px;
   }
   
   .salary-range-card {

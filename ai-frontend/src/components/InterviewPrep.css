@@ -257,7 +257,7 @@
 
 @media (max-width: 768px) {
   .interview-prep-page {
-    padding: 15px;
+    padding: 12px;
   }
   
   .form-row {
@@ -265,70 +265,89 @@
   }
   
   .prep-form-card {
-    padding: 20px;
-  }
-  
-  .prep-form-card h2 {
-    font-size: 1.2rem;
-  }
-  
-  .questions-section,
-  .tips-section {
-    padding: 20px;
-  }
-  
-  .question-header {
-    padding: 12px;
-    gap: 10px;
-  }
-  
-  .question-text {
-    font-size: 14px;
-  }
-  
-  .question-full {
-    padding: 15px;
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 480px) {
-  .interview-prep-page {
-    padding: 10px;
-  }
-  
-  .prep-form-card {
-    padding: 15px;
+    padding: 16px;
   }
   
   .prep-form-card h2 {
     font-size: 1.1rem;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
   }
   
-  .form-group label {
-    font-size: 13px;
-  }
-  
-  .form-group input,
-  .prep-form-card textarea {
-    font-size: 13px;
-    padding: 10px;
-  }
-  
-  .prep-btn {
-    font-size: 14px;
-    padding: 12px;
-  }
-  
-  .question-number {
-    width: 35px;
-    height: 35px;
-    font-size: 13px;
+  .questions-section,
+  .tips-section {
+    padding: 16px;
   }
   
   .questions-section h2,
   .tips-section h2 {
     font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .question-header {
+    padding: 11px;
+    gap: 9px;
+  }
+  
+  .question-text {
+    font-size: 13px;
+  }
+  
+  .question-full {
+    padding: 13px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .interview-prep-page {
+    padding: 8px;
+  }
+  
+  .prep-form-card {
+    padding: 12px;
+  }
+  
+  .prep-form-card h2 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .form-group label {
+    font-size: 12px;
+    margin-bottom: 0.35rem;
+  }
+  
+  .form-group input,
+  .prep-form-card textarea {
+    font-size: 12px;
+    padding: 9px;
+  }
+  
+  .prep-btn {
+    font-size: 13px;
+    padding: 11px;
+  }
+  
+  .question-number {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .questions-section h2,
+  .tips-section h2 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .question-card {
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .tips-card {
+    padding: 12px;
   }
 }
