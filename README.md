@@ -22,9 +22,9 @@ A **production-ready, full-stack web application** that combines classical algor
 
 **🚀 Try it now - No installation required!**
 
-- **Live App**: https://your-app.vercel.app (Replace with your Vercel URL)
-- **API Backend**: https://your-api.onrender.com (Replace with your Render URL)
-- **API Docs**: https://your-api.onrender.com/docs (Interactive Swagger UI)
+- **Live App**: https://job-application-assistant-one.vercel.app
+- **API Backend**: https://job-assistant-application-api.onrender.com
+- **API Docs**: https://job-assistant-application-api.onrender.com/docs
 
 *Note: Free tier - first request may take 30 seconds to wake up*
 
