@@ -6,7 +6,7 @@ export default function Chat({ chatHistory, setChatHistory }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]); // Changed: support multiple files
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -17,26 +17,36 @@ export default function Chat({ chatHistory, setChatHistory }) {
 
   useEffect(() => {
     scrollToBottom();
-  }, [chatHistory]);
+  }, [chatHistory, loading]);
+
+  // Listen to custom newChat event from navigation/sidebar
+  useEffect(() => {
+    const handleNewChatEvent = () => {
+      setChatHistory([]);
+      setUploadedFiles([]);
+      setInput("");
+    };
+    window.addEventListener("newChat", handleNewChatEvent);
+    return () => window.removeEventListener("newChat", handleNewChatEvent);
+  }, [setChatHistory]);
 
   // Handle multiple file uploads
   const handleFileUpload = (e) => {
     const files = e.target.files;
-    if (files) {
-      const newFiles = Array.from(files).map(file => ({
+    if (files && files.length > 0) {
+      const newFiles = Array.from(files).map((file) => ({
         file,
         name: file.name,
-        id: Date.now() + Math.random() // Simple unique ID
+        id: Date.now() + Math.random()
       }));
-      setUploadedFiles(prev => [...prev, ...newFiles]);
+      setUploadedFiles((prev) => [...prev, ...newFiles]);
     }
-    // Reset file input
     e.target.value = "";
   };
 
   // Remove a specific file from the list
   const removeFile = (fileId) => {
-    setUploadedFiles(prev => prev.filter(f => f.id !== fileId));
+    setUploadedFiles((prev) => prev.filter((f) => f.id !== fileId));
   };
 
   const handleSend = async (text = null) => {
@@ -48,25 +58,22 @@ export default function Chat({ chatHistory, setChatHistory }) {
     const userMessage = { 
       role: "user", 
       content: message,
-      fileNames: uploadedFiles.map(f => f.name) || [],
+      fileNames: uploadedFiles.map((f) => f.name) || [],
       timestamp: new Date() 
     };
     const newHistory = [...chatHistory, userMessage];
     setChatHistory(newHistory);
     setInput("");
     setIsSending(true);
+    setLoading(true);
 
     try {
-      // Get AI response from backend
       let response;
-      
       if (uploadedFiles.length > 0) {
-        // Send first file with all files' context
         const formData = new FormData();
         formData.append("file", uploadedFiles[0].file);
         formData.append("query", message);
         
-        // Add additional files as context if supported by backend
         uploadedFiles.slice(1).forEach((fileObj, idx) => {
           formData.append(`additional_file_${idx}`, fileObj.file);
         });
@@ -79,24 +86,23 @@ export default function Chat({ chatHistory, setChatHistory }) {
       const aiResponse = {
         role: "assistant",
         content: response.advice || response.response || getDefaultResponse(message),
-        fileNames: uploadedFiles.map(f => f.name),
+        fileNames: uploadedFiles.map((f) => f.name),
         timestamp: new Date()
       };
-      setChatHistory(prev => [...prev, aiResponse]);
-      
-      // Clear files after successful response
+      setChatHistory((prev) => [...prev, aiResponse]);
       setUploadedFiles([]);
     } catch (error) {
       console.error("Chat error:", error);
       const fallbackResponse = {
         role: "assistant",
         content: getDefaultResponse(message),
-        fileNames: uploadedFiles.map(f => f.name),
+        fileNames: uploadedFiles.map((f) => f.name),
         timestamp: new Date()
       };
-      setChatHistory(prev => [...prev, fallbackResponse]);
+      setChatHistory((prev) => [...prev, fallbackResponse]);
     } finally {
       setIsSending(false);
+      setLoading(false);
     }
   };
 
@@ -136,28 +142,32 @@ export default function Chat({ chatHistory, setChatHistory }) {
 
   return (
     <div className="chat-container">
-      <div className="chat-header">
+      {/* Chat Sub-header */}
+      <div className="chat-header-modern">
         <div className="chat-header-row">
-          <h1>🤖 AI Career Assistant</h1>
+          <div className="chat-title-group">
+            <h1>🤖 AI Career Copilot</h1>
+            <p>24/7 personalized guidance on resumes, interview prep, salary negotiation, and career growth</p>
+          </div>
           <button
-            className="header-upload-btn"
+            className="chat-header-upload-btn"
             onClick={() => fileInputRef.current?.click()}
-            title="Upload resume or document"
+            title="Upload resume or document for AI context"
           >
-            📎 Upload
+            <span>📎 Upload File</span>
           </button>
         </div>
-        <p>24/7 guidance on resumes, interviews, career growth, and job search</p>
       </div>
 
+      {/* Chat Messages Stream */}
       <div className="chat-messages">
         {chatHistory.length === 0 && (
           <div className="chat-empty">
             <div className="chat-empty-icon">💼</div>
             <h3>Welcome to Your AI Career Assistant</h3>
-            <p>I'm here to help you succeed in your job search and career!</p>
+            <p>Ask anything about your job hunt, interview strategies, or upload your resume for tailored feedback.</p>
             <div className="suggested-section">
-              <p className="suggested-title">Try asking me about:</p>
+              <p className="suggested-title">Quick prompts to get started:</p>
               <div className="suggested-questions">
                 {suggestedQuestions.map((q, idx) => (
                   <button 
@@ -165,7 +175,8 @@ export default function Chat({ chatHistory, setChatHistory }) {
                     onClick={() => handleSend(q)} 
                     className="suggested-btn"
                   >
-                    {q}
+                    <span>{q}</span>
+                    <span className="suggested-arrow">→</span>
                   </button>
                 ))}
               </div>
@@ -179,13 +190,20 @@ export default function Chat({ chatHistory, setChatHistory }) {
               {msg.role === "user" ? "👤" : "🤖"}
             </div>
             <div className="message-content">
+              {msg.fileNames && msg.fileNames.length > 0 && (
+                <div className="message-files">
+                  {msg.fileNames.map((fn, i) => (
+                    <span key={i} className="message-file-badge">📎 {fn}</span>
+                  ))}
+                </div>
+              )}
               <div className="message-text">
-                {msg.content.split('\n').map((line, i) => (
+                {msg.content.split("\n").map((line, i) => (
                   line.trim() && <p key={i}>{line}</p>
                 ))}
               </div>
               <span className="message-time">
-                {msg.timestamp?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {msg.timestamp?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
               </span>
             </div>
           </div>
@@ -196,9 +214,9 @@ export default function Chat({ chatHistory, setChatHistory }) {
             <div className="message-avatar">🤖</div>
             <div className="message-content">
               <div className="typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span />
+                <span />
+                <span />
               </div>
             </div>
           </div>
@@ -207,14 +225,15 @@ export default function Chat({ chatHistory, setChatHistory }) {
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Chat Input Dock */}
       <div className="chat-input-area">
         {uploadedFiles.length > 0 && (
           <div className="files-list">
-            <div className="files-label">📎 Files ({uploadedFiles.length}):</div>
+            <div className="files-label">Attached ({uploadedFiles.length}):</div>
             <div className="files-container">
-              {uploadedFiles.map(fileObj => (
+              {uploadedFiles.map((fileObj) => (
                 <div key={fileObj.id} className="file-item">
-                  <span className="file-name">{fileObj.name}</span>
+                  <span className="file-name">📄 {fileObj.name}</span>
                   <button 
                     className="file-remove"
                     onClick={() => removeFile(fileObj.id)}
@@ -227,13 +246,16 @@ export default function Chat({ chatHistory, setChatHistory }) {
             </div>
           </div>
         )}
+
         <div className="input-controls">
           <button
             className="file-upload-btn"
             onClick={() => fileInputRef.current?.click()}
-            title="Upload one or more files for AI context"
+            title="Upload documents for AI context"
+            type="button"
           >
-            📎 Add File{uploadedFiles.length > 0 ? 's' : ''}
+            <span>📎</span>
+            <span className="upload-btn-text">Attach</span>
           </button>
           <input
             ref={fileInputRef}
@@ -247,18 +269,29 @@ export default function Chat({ chatHistory, setChatHistory }) {
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
             placeholder="Ask me anything about careers, resumes, interviews... (Shift+Enter for new line)"
             disabled={isSending}
             className="chat-input"
-            rows="3"
+            rows="2"
           />
           <button 
             onClick={() => handleSend()} 
-            disabled={!input.trim() && uploadedFiles.length === 0 || isSending}
-            className={`send-btn ${isSending ? 'sending' : ''}`}
+            disabled={(!input.trim() && uploadedFiles.length === 0) || isSending}
+            className={`send-btn ${isSending ? "sending" : ""}`}
+            type="button"
           >
-            {isSending ? '⏳ Thinking...' : '📤 Send'}
+            {isSending ? (
+              <>
+                <span className="chat-spinner" />
+                <span>Thinking...</span>
+              </>
+            ) : (
+              <>
+                <span>Send</span>
+                <span className="send-arrow">↑</span>
+              </>
+            )}
           </button>
         </div>
       </div>

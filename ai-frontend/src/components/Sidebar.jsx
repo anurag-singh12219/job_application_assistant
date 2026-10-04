@@ -14,58 +14,80 @@ export default function Sidebar({ activeView, setActiveView }) {
     { id: "chat", icon: "🤖", label: "AI Chat" }
   ];
 
-  const handleNewChat = () => {
+  const handleNewSession = () => {
     setActiveView("chat");
-    // Reset chat history if needed
-    window.dispatchEvent(new CustomEvent('newChat'));
+    window.dispatchEvent(new CustomEvent("newChat"));
   };
 
   return (
-    <aside className={`sidebar ${isExpanded ? "expanded" : "collapsed"}`}>
-      <div className="sidebar-header">
-        <div className="logo">
-          <span className="logo-icon">✨</span>
-          {isExpanded && <span className="logo-text">JobAI Analytics</span>}
+    <aside className={`app-sidebar ${isExpanded ? "expanded" : "collapsed"}`} aria-label="Sidebar navigation">
+      <div className="sidebar-top">
+        <div className="sidebar-brand-section">
+          {isExpanded && (
+            <div className="sidebar-brand-label">
+              <span className="brand-dot" />
+              <span>WORKSPACE</span>
+            </div>
+          )}
+          <button
+            className="sidebar-collapse-btn"
+            onClick={() => setIsExpanded(!isExpanded)}
+            title={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+            aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+          >
+            <svg
+              className={`collapse-icon ${isExpanded ? "" : "rotated"}`}
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M12 15l-5-5 5-5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
         </div>
-        <button 
-          className="toggle-btn"
-          onClick={() => setIsExpanded(!isExpanded)}
-          title={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+
+        {/* New Session Action */}
+        <button
+          className="sidebar-new-btn"
+          onClick={handleNewSession}
+          title="Start a new analysis or chat session"
         >
-          {isExpanded ? "◀" : "▶"}
+          <span className="new-btn-icon">+</span>
+          {isExpanded && <span className="new-btn-label">New Session</span>}
         </button>
       </div>
 
-      <button 
-        className="new-chat-btn"
-        onClick={handleNewChat}
-        title="Start a new analysis session"
-      >
-        <span>+</span>
-        {isExpanded && <span>New Analysis</span>}
-      </button>
-
-      <nav className="sidebar-nav">
-        {menuItems.map(item => (
-          <button
-            key={item.id}
-            className={`nav-item ${activeView === item.id ? "active" : ""}`}
-            onClick={() => setActiveView(item.id)}
-            title={item.label}
-          >
-            <span className="nav-icon">{item.icon}</span>
-            {isExpanded && <span className="nav-label">{item.label}</span>}
-          </button>
-        ))}
+      {/* Navigation List */}
+      <nav className="sidebar-nav-menu">
+        {menuItems.map((item) => {
+          const isActive = activeView === item.id;
+          return (
+            <button
+              key={item.id}
+              className={`sidebar-nav-item ${isActive ? "active" : ""}`}
+              onClick={() => setActiveView(item.id)}
+              title={!isExpanded ? item.label : undefined}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <span className="sidebar-item-icon">{item.icon}</span>
+              {isExpanded && <span className="sidebar-item-label">{item.label}</span>}
+              {isActive && <span className="sidebar-active-indicator" />}
+            </button>
+          );
+        })}
       </nav>
 
-      <div className="sidebar-footer">
-        <div className="ai-badge">
-          <span className="ai-icon">⚡</span>
+      {/* Sidebar Footer */}
+      <div className="sidebar-bottom">
+        <div className="sidebar-ai-card">
+          <div className="ai-status-indicator">
+            <span className="status-pulse" />
+          </div>
           {isExpanded && (
-            <div>
-              <div className="ai-badge-title">Powered By</div>
-              <div className="ai-badge-text">OpenAI GPT-4 & Advanced AI</div>
+            <div className="ai-status-details">
+              <div className="ai-status-heading">AI Engine Online</div>
+              <div className="ai-status-sub">GPT-4 & Career Insights</div>
             </div>
           )}
         </div>
@@ -73,4 +95,3 @@ export default function Sidebar({ activeView, setActiveView }) {
     </aside>
   );
 }
-

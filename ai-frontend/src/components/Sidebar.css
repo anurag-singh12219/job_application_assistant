@@ -1,764 +1,235 @@
-/* ============================================
-   SIDEBAR COMPONENT
-   ============================================ */
+/* ==========================================================================
+   SIDEBAR COMPONENT STYLES
+   ========================================================================== */
 
-.sidebar {
-  width: 280px;
-  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 50%, #6366f1 100%);
-  color: white;
+.app-sidebar {
+  width: 250px;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  overflow-y: auto;
+  transition: width var(--transition-smooth), background-color var(--transition-normal);
+  height: calc(100vh - 68px);
+  position: sticky;
+  top: 68px;
+  flex-shrink: 0;
+  z-index: 800;
+  user-select: none;
 }
 
-.sidebar.collapsed {
-  width: 100px;
+.app-sidebar.collapsed {
+  width: 72px;
 }
 
-/* Sidebar Header */
-.sidebar-header {
-  padding: 1.5rem;
+/* Sidebar Top Section */
+.sidebar-top {
+  padding: 16px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-brand-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  height: 28px;
 }
 
-.logo {
+.sidebar-brand-label {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  flex: 1;
-}
-
-.logo-icon {
-  font-size: 2rem;
-  animation: rotate 20s linear infinite;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.logo-text {
-  font-size: 1.25rem;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  background: rgba(255, 255, 255, 0.95);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
 }
 
-.toggle-btn {
-  background: rgba(255, 255, 255, 0.15);
-  border: none;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  font-size: 1rem;
+.brand-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-orange);
 }
 
-.toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.1);
-}
-
-/* New Chat Button */
-.new-chat-btn {
-  margin: 1.25rem;
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
+.sidebar-collapse-btn {
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-}
-
-.new-chat-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Navigation */
-.sidebar-nav {
-  flex: 1;
-  padding: 0.75rem;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-}
-
-.nav-item {
-  width: 100%;
-  padding: 1rem;
-  background: transparent;
-  border: none;
-  border-radius: 12px;
-  color: rgba(255, 255, 255, 0.75);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
   cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-left: auto;
+}
+
+.sidebar-collapse-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+  background: var(--bg-card-hover);
+}
+
+.collapse-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--transition-normal);
+}
+
+.collapse-icon.rotated {
+  transform: rotate(180deg);
+}
+
+/* New Session Button */
+.sidebar-new-btn {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: left;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sidebar-new-btn:hover {
+  border-color: var(--border-bright);
+  background: var(--gradient-brand-subtle);
+  transform: translateY(-1px);
+}
+
+.new-btn-icon {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--brand-pink);
+  font-weight: 700;
+}
+
+.new-btn-label {
+  white-space: nowrap;
+}
+
+/* Navigation List */
+.sidebar-nav-menu {
+  flex: 1;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+.sidebar-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13.5px;
   font-weight: 500;
-  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
-.nav-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  transform: translateX(4px);
+.sidebar-nav-item:hover {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
 }
 
-.nav-item.active {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.sidebar-nav-item.active {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
-.nav-icon {
-  font-size: 1.5rem;
-  min-width: 1.5rem;
+.sidebar-item-icon {
+  font-size: 16px;
+  width: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.nav-label {
-  font-size: 0.95rem;
+.sidebar-item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-active-indicator {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--gradient-brand);
 }
 
 /* Sidebar Footer */
-.sidebar-footer {
-  padding: 1.5rem;
-  border-top: 2px solid rgba(255, 255, 255, 0.15);
+.sidebar-bottom {
+  padding: 12px 10px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
 }
 
-.ai-badge {
+.sidebar-ai-card {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
 }
 
-.ai-badge:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+.ai-status-indicator {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
 }
 
-.ai-icon {
-  font-size: 1.5rem;
-  animation: pulse 2s ease-in-out infinite;
+.status-pulse {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand-emerald);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-.ai-badge-title {
-  font-size: 0.75rem;
+.ai-status-heading {
+  font-size: 11.5px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
-.ai-badge-text {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.3;
+.ai-status-sub {
+  font-size: 10.5px;
+  color: var(--text-muted);
 }
 
-/* Collapsed State */
-.sidebar.collapsed .logo-text,
-.sidebar.collapsed .nav-label,
-.sidebar.collapsed .ai-badge div,
-.sidebar.collapsed .new-chat-btn span:last-child {
-  display: none;
-}
-
-.sidebar.collapsed .sidebar-header {
-  justify-content: center;
-}
-
-.sidebar.collapsed .toggle-btn {
-  margin-left: 0.5rem;
-}
-
-/* Scrollbar Styling */
-.sidebar-nav::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar-nav::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* Sidebar Scrollbar (for tablet/mobile fixed position) */
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
-
-/* Tablet (1024px) - Compact Sidebar */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 90px;
-    position: fixed;
-    left: 0;
-    top: 0;
-  }
-
-  .sidebar.collapsed {
-    width: 70px;
-  }
-  
-  .sidebar-header {
-    padding: 1rem 0.5rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .logo {
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-  
-  .logo-icon {
-    font-size: 1.8rem;
-  }
-  
-  .logo-text {
-    font-size: 0.7rem;
-    line-height: 1.1;
-    text-align: center;
-  }
-  
-  .toggle-btn {
-    padding: 0.4rem;
-    font-size: 0.85rem;
-  }
-  
-  .new-chat-btn {
-    margin: 0.75rem 0.5rem;
-    padding: 0.65rem 0.4rem;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.7rem;
-  }
-  
-  .new-chat-btn span:first-child {
-    font-size: 1.3rem;
-  }
-  
-  .new-chat-btn span:last-child {
-    font-size: 0.65rem;
-    line-height: 1.1;
-    text-align: center;
-  }
-  
-  .sidebar-nav {
-    padding: 0.5rem 0.35rem;
-  }
-  
-  .nav-item {
-    padding: 0.75rem 0.4rem;
-    margin-bottom: 0.4rem;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.65rem;
-    text-align: center;
-  }
-  
-  .nav-item:hover {
-    transform: translateX(0) scale(1.02);
-  }
-  
-  .nav-icon {
-    font-size: 1.4rem;
-    min-width: auto;
-  }
-  
-  .nav-label {
-    font-size: 0.65rem;
-    line-height: 1.1;
-  }
-  
-  .sidebar-footer {
-    padding: 0.75rem 0.5rem;
-  }
-  
-  .ai-badge {
-    flex-direction: column;
-    padding: 0.6rem 0.4rem;
-    gap: 0.35rem;
-    text-align: center;
-  }
-  
-  .ai-icon {
-    font-size: 1.3rem;
-  }
-  
-  .ai-badge-title {
-    font-size: 0.65rem;
-    line-height: 1.1;
-  }
-  
-  .ai-badge-text {
-    font-size: 0.6rem;
-    line-height: 1.2;
-  }
-}
-
-/* Tablet Portrait */
-@media (max-width: 768px) and (orientation: portrait) {
-  .sidebar {
-    width: 70px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    flex-direction: column;
-    z-index: 1000;
-    overflow-y: auto;
-  }
-  
-  .sidebar-header {
-    padding: 1rem 0.5rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-    border-right: none;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .logo {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .logo-icon {
-    font-size: 1.75rem;
-  }
-  
-  .logo-text {
+/* Responsive Hide for Sidebar on Mobile/Tablet */
+@media (max-width: 900px) {
+  .app-sidebar {
     display: none;
   }
-  
-  .toggle-btn {
-    display: none;
-  }
-  
-  .new-chat-btn {
-    margin: 0.75rem 0.5rem;
-    padding: 0.65rem;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.7rem;
-  }
-  
-  .new-chat-btn span:first-child {
-    font-size: 1.25rem;
-  }
-  
-  .new-chat-btn span:last-child {
-    font-size: 0.65rem;
-    line-height: 1.2;
-  }
-  
-  .sidebar-nav {
-    flex: 1;
-    padding: 0.5rem;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  
-  .nav-item {
-    padding: 0.75rem 0.5rem;
-    margin-bottom: 0.35rem;
-    flex-direction: column;
-    gap: 0.35rem;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .nav-icon {
-    font-size: 1.35rem;
-    min-width: auto;
-  }
-  
-  .nav-label {
-    font-size: 0.65rem;
-    line-height: 1.1;
-    white-space: normal;
-    word-break: break-word;
-  }
-  
-  .sidebar-footer {
-    padding: 0.75rem 0.5rem;
-    border-top: 2px solid rgba(255, 255, 255, 0.15);
-  }
-  
-  .ai-badge {
-    flex-direction: column;
-    padding: 0.5rem;
-    gap: 0.35rem;
-    text-align: center;
-  }
-  
-  .ai-icon {
-    font-size: 1.25rem;
-  }
-  
-  .ai-badge div {
-    display: block;
-  }
-  
-  .ai-badge-title {
-    font-size: 0.65rem;
-  }
-  
-  .ai-badge-text {
-    font-size: 0.6rem;
-    line-height: 1.2;
-  }
-}
-
-/* Tablet Landscape */
-@media (max-width: 768px) and (orientation: landscape) {
-  .sidebar {
-    width: 65px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    flex-direction: column;
-    z-index: 1000;
-    overflow-y: auto;
-  }
-  
-  .sidebar-header {
-    padding: 0.75rem 0.5rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-    border-right: none;
-  }
-  
-  .logo {
-    flex-direction: column;
-  }
-  
-  .logo-icon {
-    font-size: 1.5rem;
-  }
-  
-  .logo-text,
-  .toggle-btn {
-    display: none;
-  }
-  
-  .new-chat-btn {
-    margin: 0.5rem 0.35rem;
-    padding: 0.5rem;
-    flex-direction: column;
-  }
-  
-  .new-chat-btn span:first-child {
-    font-size: 1.1rem;
-  }
-  
-  .new-chat-btn span:last-child {
-    font-size: 0.6rem;
-  }
-  
-  .sidebar-nav {
-    flex: 1;
-    padding: 0.35rem;
-    overflow-y: auto;
-  }
-  
-  .nav-item {
-    padding: 0.6rem 0.35rem;
-    margin-bottom: 0.25rem;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .nav-icon {
-    font-size: 1.2rem;
-  }
-  
-  .nav-label {
-    font-size: 0.6rem;
-    line-height: 1;
-  }
-  
-  .sidebar-footer {
-    padding: 0.5rem 0.35rem;
-  }
-  
-  .ai-badge {
-    flex-direction: column;
-    padding: 0.5rem 0.25rem;
-    gap: 0.25rem;
-  }
-  
-  .ai-icon {
-    font-size: 1.1rem;
-  }
-  
-  .ai-badge-title {
-    font-size: 0.6rem;
-  }
-  
-  .ai-badge-text {
-    font-size: 0.55rem;
-  }
-}
-
-/* Mobile Portrait */
-@media (max-width: 480px) and (orientation: portrait) {
-  .sidebar {
-    width: 65px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    flex-direction: column;
-    z-index: 1000;
-    overflow-y: auto;
-  }
-  
-  .sidebar-header {
-    padding: 0.85rem 0.4rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-  }
-  
-  .logo {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .logo-icon {
-    font-size: 1.6rem;
-  }
-  
-  .logo-text,
-  .toggle-btn {
-    display: none;
-  }
-  
-  .new-chat-btn {
-    margin: 0.65rem 0.4rem;
-    padding: 0.6rem 0.35rem;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-  
-  .new-chat-btn span:first-child {
-    font-size: 1.2rem;
-  }
-  
-  .new-chat-btn span:last-child {
-    font-size: 0.62rem;
-    line-height: 1.1;
-  }
-  
-  .sidebar-nav {
-    flex: 1;
-    padding: 0.4rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  
-  .nav-item {
-    padding: 0.7rem 0.35rem;
-    margin-bottom: 0.3rem;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-  
-  .nav-icon {
-    font-size: 1.3rem;
-  }
-  
-  .nav-label {
-    font-size: 0.62rem;
-    line-height: 1.1;
-    white-space: normal;
-  }
-  
-  .sidebar-footer {
-    padding: 0.65rem 0.4rem;
-  }
-  
-  .ai-badge {
-    flex-direction: column;
-    padding: 0.5rem 0.35rem;
-    gap: 0.3rem;
-  }
-  
-  .ai-icon {
-    font-size: 1.2rem;
-  }
-  
-  .ai-badge-title {
-    font-size: 0.62rem;
-  }
-  
-  .ai-badge-text {
-    font-size: 0.58rem;
-    line-height: 1.2;
-  }
-}
-
-/* Mobile Landscape */
-@media (max-width: 480px) and (orientation: landscape) {
-  .sidebar {
-    width: 60px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    flex-direction: column;
-    z-index: 1000;
-    overflow-y: auto;
-  }
-  
-  .sidebar-header {
-    padding: 0.6rem 0.35rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-  }
-  
-  .logo {
-    flex-direction: column;
-  }
-  
-  .logo-icon {
-    font-size: 1.35rem;
-  }
-  
-  .logo-text,
-  .toggle-btn {
-    display: none;
-  }
-  
-  .new-chat-btn {
-    margin: 0.4rem 0.3rem;
-    padding: 0.5rem 0.3rem;
-    flex-direction: column;
-  }
-  
-  .new-chat-btn span:first-child {
-    font-size: 1rem;
-  }
-  
-  .new-chat-btn span:last-child {
-    font-size: 0.55rem;
-  }
-  
-  .sidebar-nav {
-    flex: 1;
-    padding: 0.3rem;
-    overflow-y: auto;
-  }
-  
-  .nav-item {
-    padding: 0.55rem 0.3rem;
-    margin-bottom: 0.2rem;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-  
-  .nav-icon {
-    font-size: 1.1rem;
-  }
-  
-  .nav-label {
-    font-size: 0.55rem;
-    line-height: 1;
-  }
-  
-  .sidebar-footer {
-    padding: 0.5rem 0.3rem;
-  }
-  
-  .ai-badge {
-    flex-direction: column;
-    padding: 0.4rem 0.25rem;
-    gap: 0.2rem;
-  }
-  
-  .ai-icon {
-    font-size: 1rem;
-  }
-  
-  .ai-badge-title {
-    font-size: 0.55rem;
-  }
-  
-  .ai-badge-text {
-    font-size: 0.5rem;
-  }
-}
-
-.sidebar.collapsed .new-chat-btn,
-.sidebar.collapsed .nav-item {
-  justify-content: center;
 }
