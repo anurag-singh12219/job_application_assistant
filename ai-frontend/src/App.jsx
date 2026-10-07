@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
@@ -8,13 +11,26 @@ import InterviewPrep from "./components/InterviewPrep";
 import SalaryNegotiation from "./components/SalaryNegotiation";
 import JobSearch from "./components/JobSearch";
 import CommandPalette from "./components/CommandPalette";
+
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import ForgotPassword from "./components/auth/ForgotPassword";
+import ResetPassword from "./components/auth/ResetPassword";
+import VerifyEmail from "./components/auth/VerifyEmail";
+import Profile from "./components/auth/Profile";
+import AdminDashboard from "./components/auth/AdminDashboard";
+import Unauthorized from "./components/auth/Unauthorized";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AdminRoute from "./components/auth/AdminRoute";
+
 import "./styles/theme.css";
 import "./App.css";
 
-function App() {
+function AppShell() {
   const [activeView, setActiveView] = useState("home");
   const [chatHistory, setChatHistory] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Initialize theme: saved in localStorage -> system preference -> default dark
   const [theme, setTheme] = useState(() => {
@@ -22,7 +38,7 @@ function App() {
     if (saved === "light" || saved === "dark") {
       return saved;
     }
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+    if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
       return "light";
     }
     return "dark"; // Default is dark
@@ -50,27 +66,14 @@ function App() {
   }, []);
 
   const handleNewSession = () => {
+    navigate("/");
     setActiveView("chat");
     window.dispatchEvent(new CustomEvent("newChat"));
   };
 
-  const renderContent = () => {
-    switch (activeView) {
-      case "chat":
-        return <Chat chatHistory={chatHistory} setChatHistory={setChatHistory} />;
-      case "resume":
-        return <ResumeAnalysis />;
-      case "cover-letter":
-        return <CoverLetter />;
-      case "interview":
-        return <InterviewPrep />;
-      case "salary":
-        return <SalaryNegotiation />;
-      case "jobs":
-        return <JobSearch />;
-      default:
-        return <HomeView setActiveView={setActiveView} onOpenSearch={() => setIsSearchOpen(true)} />;
-    }
+  const handleSelectView = (viewId) => {
+    navigate("/");
+    setActiveView(viewId);
   };
 
   return (
@@ -85,32 +88,88 @@ function App() {
       {/* Top Navigation Bar */}
       <Navbar
         activeView={activeView}
-        setActiveView={setActiveView}
+        setActiveView={handleSelectView}
         theme={theme}
         toggleTheme={toggleTheme}
         onOpenSearch={() => setIsSearchOpen(true)}
         onNewSession={handleNewSession}
       />
 
-      {/* Main Layout Container */}
-      <div className="app-body">
-        {/* Workflow Sidebar */}
-        <Sidebar activeView={activeView} setActiveView={setActiveView} />
+      <Routes>
+        {/* Main Application Workspace with Sidebar */}
+        <Route
+          path="/"
+          element={
+            <div className="app-body">
+              <Sidebar activeView={activeView} setActiveView={handleSelectView} />
+              <main className="main-content-area" id="main-content">
+                <WorkspaceView
+                  activeView={activeView}
+                  setActiveView={handleSelectView}
+                  chatHistory={chatHistory}
+                  setChatHistory={setChatHistory}
+                  onOpenSearch={() => setIsSearchOpen(true)}
+                />
+              </main>
+            </div>
+          }
+        />
 
-        {/* Dynamic Content Pane */}
-        <main className="main-content-area" id="main-content">
-          {renderContent()}
-        </main>
-      </div>
+        {/* Authentication Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
       {/* Quick Switcher / Command Palette */}
       <CommandPalette
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
-        onSelectView={setActiveView}
+        onSelectView={handleSelectView}
       />
     </div>
   );
+}
+
+function WorkspaceView({ activeView, setActiveView, chatHistory, setChatHistory, onOpenSearch }) {
+  switch (activeView) {
+    case "chat":
+      return <Chat chatHistory={chatHistory} setChatHistory={setChatHistory} />;
+    case "resume":
+      return <ResumeAnalysis />;
+    case "cover-letter":
+      return <CoverLetter />;
+    case "interview":
+      return <InterviewPrep />;
+    case "salary":
+      return <SalaryNegotiation />;
+    case "jobs":
+      return <JobSearch />;
+    default:
+      return <HomeView setActiveView={setActiveView} onOpenSearch={onOpenSearch} />;
+  }
 }
 
 function HomeView({ setActiveView, onOpenSearch }) {
@@ -167,7 +226,7 @@ function HomeView({ setActiveView, onOpenSearch }) {
 
   return (
     <div className="home-dashboard-view">
-      {/* Hero Section inspired by DockKit Reference Images 3 & 4 */}
+      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-badge">
@@ -211,7 +270,7 @@ function HomeView({ setActiveView, onOpenSearch }) {
         </div>
       </section>
 
-      {/* Feature Cards Grid (Inspired by DockKit Reference Image 1) */}
+      {/* Feature Cards Grid */}
       <section className="quick-start-section">
         <div className="section-header-centered">
           <h2 className="section-title">Quick Start</h2>
@@ -274,4 +333,12 @@ function HomeView({ setActiveView, onOpenSearch }) {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <AppShell />
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}

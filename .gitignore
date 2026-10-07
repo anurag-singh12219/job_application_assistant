@@ -73,6 +73,8 @@ build/
 # Uncomment if you don't want to commit data
 # *.csv
 # data/
+*.db
+*.sqlite3
 
 # OS
 Thumbs.db

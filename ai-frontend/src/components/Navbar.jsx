@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
 export default function Navbar({ activeView, setActiveView, theme, toggleTheme, onOpenSearch, onNewSession }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { user, isAdmin, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,10 +39,22 @@ export default function Navbar({ activeView, setActiveView, theme, toggleTheme, 
   ];
 
   const handleNavClick = (viewId) => {
-    setActiveView(viewId);
+    navigate("/");
+    if (setActiveView) {
+      setActiveView(viewId);
+    }
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+
+  const initials = user?.full_name
+    ? user.full_name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+    : "U";
 
   return (
     <>
@@ -116,14 +132,45 @@ export default function Navbar({ activeView, setActiveView, theme, toggleTheme, 
               </div>
             </button>
 
-            {/* Gradient Outline CTA Button (DockKit style) */}
-            <button
-              className="btn-dockkit-cta nav-cta-btn"
-              onClick={onNewSession}
-              title="Start a new analysis session"
-            >
-              <span>Get Started</span>
-            </button>
+            {/* Authentication States */}
+            {user ? (
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                {isAdmin && (
+                  <Link to="/admin" className="nav-admin-link-btn" title="Administrator Control Center">
+                    <span>Admin</span>
+                  </Link>
+                )}
+
+                <button
+                  type="button"
+                  className="nav-user-chip"
+                  onClick={() => navigate("/profile")}
+                  title="View your profile & settings"
+                >
+                  <span className="nav-user-avatar">{initials}</span>
+                  <span>{user.full_name?.split(" ")[0] || "User"}</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="btn-dockkit-cta nav-cta-btn"
+                  onClick={onNewSession}
+                  title="Start a new career analysis session"
+                >
+                  <span>+ New Session</span>
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Link to="/login" className="nav-signin-btn">
+                  Sign In
+                </Link>
+
+                <Link to="/register" className="btn-dockkit-cta nav-cta-btn">
+                  <span>Get Started</span>
+                </Link>
+              </div>
+            )}
 
             {/* Mobile Hamburger Toggle */}
             <button
@@ -180,6 +227,48 @@ export default function Navbar({ activeView, setActiveView, theme, toggleTheme, 
                 {activeView === link.id && <span className="active-dot" />}
               </button>
             ))}
+
+            <div style={{ height: "1px", background: "var(--border-subtle)", margin: "10px 0" }} />
+
+            {user ? (
+              <>
+                <button
+                  className="mobile-nav-item"
+                  onClick={() => { setMobileMenuOpen(false); navigate("/profile"); }}
+                >
+                  <span>Profile ({user.full_name})</span>
+                </button>
+                {isAdmin && (
+                  <button
+                    className="mobile-nav-item"
+                    onClick={() => { setMobileMenuOpen(false); navigate("/admin"); }}
+                  >
+                    <span>Admin Control Center</span>
+                  </button>
+                )}
+                <button
+                  className="mobile-nav-item"
+                  onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
+                >
+                  <span style={{ color: "var(--error)" }}>Sign Out</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="mobile-nav-item"
+                  onClick={() => { setMobileMenuOpen(false); navigate("/login"); }}
+                >
+                  <span>Sign In</span>
+                </button>
+                <button
+                  className="mobile-nav-item"
+                  onClick={() => { setMobileMenuOpen(false); navigate("/register"); }}
+                >
+                  <span style={{ color: "var(--brand-orange)", fontWeight: 700 }}>Create Free Account</span>
+                </button>
+              </>
+            )}
           </nav>
 
           <div className="mobile-drawer-footer">
@@ -197,9 +286,6 @@ export default function Navbar({ activeView, setActiveView, theme, toggleTheme, 
                 </div>
               </button>
             </div>
-            <button className="btn-brand-solid mobile-cta" onClick={() => { setMobileMenuOpen(false); onNewSession(); }}>
-              Start Analysis Now →
-            </button>
           </div>
         </aside>
       </div>

@@ -1,8 +1,16 @@
-from fastapi import FastAPI, UploadFile, Form, File, Body, HTTPException
+from fastapi import FastAPI, UploadFile, Form, File, Body, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 import pandas as pd
+import os
+import logging
+
+from core.config import settings
+from core.database import engine, Base, SessionLocal
+from services.admin_service import admin_service
+from api.auth import router as auth_router
+from api.admin import router as admin_router
 
 from services.resume_parser import extract_text, extract_skills
 from services.ats_engine import calculate_ats
@@ -15,28 +23,63 @@ from services.salary_negotiator import get_salary_insights, generate_negotiation
 from services.job_search import search_jobs, search_internships, match_jobs_to_skills, get_application_tips
 from models.role_classifier import predict_role
 
-import os
+logger = logging.getLogger("api")
+
+# Validate configuration for production
+settings.validate_production_settings()
+
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Bootstrap first admin from environment variables if configured
+    if settings.FIRST_ADMIN_EMAIL and settings.FIRST_ADMIN_PASSWORD:
+        db = SessionLocal()
+        try:
+            admin_service.bootstrap_first_admin(
+                db,
+                email=settings.FIRST_ADMIN_EMAIL,
+                password=settings.FIRST_ADMIN_PASSWORD,
+                name=settings.FIRST_ADMIN_NAME or "System Administrator"
+            )
+        finally:
+            db.close()
+    yield
 
 app = FastAPI(
     title="AI Job Application Assistant",
-    description="Complete AI-powered career assistance platform",
-    version="2.0"
+    description="Complete AI-powered career assistance and authentication platform",
+    version="2.1",
+    lifespan=lifespan
 )
 
+# Initialize database tables on application start
+Base.metadata.create_all(bind=engine)
+
+# Security Headers Middleware
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    response: Response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    if settings.ENVIRONMENT == "production":
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    return response
+
+# Strict CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:3000",
-        "https://job-application-assistant-one.vercel.app",  # Your Vercel frontend
-        "*",  # Allow all origins for public API
-    ],
+    allow_origins=settings.CORS_ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["Retry-After"]
 )
+
+# Mount Authentication & Administration Routers
+app.include_router(auth_router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(admin_router, prefix="/api/admin", tags=["Administration"])
 
 
 # Pydantic Models

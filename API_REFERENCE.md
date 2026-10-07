@@ -17,17 +17,40 @@ http://localhost:8000
 
 ## Endpoints Summary
 
+### Authentication & Authorization Endpoints
+| Method | Endpoint | Protection | Purpose |
+|--------|----------|------------|---------|
+| `POST` | `/api/auth/register` | Rate limited | Register a new user account with role `user` |
+| `POST` | `/api/auth/login` | Rate limited | Authenticate and set HttpOnly session cookies |
+| `POST` | `/api/auth/logout` | Public | Clear cookies and revoke refresh token session |
+| `POST` | `/api/auth/refresh` | Rate limited | Rotate refresh token and issue new access token |
+| `GET` | `/api/auth/me` | Authenticated | Retrieve profile of the authenticated user |
+| `POST` | `/api/auth/forgot-password` | Rate limited | Send secure single-use password reset link |
+| `POST` | `/api/auth/reset-password` | Rate limited | Reset password using one-time token |
+| `POST` | `/api/auth/verify-email` | Rate limited | Confirm email address using verification token |
+| `POST` | `/api/auth/resend-verification` | Rate limited | Resend email verification link |
+| `PATCH` | `/api/auth/change-password` | Authenticated + CSRF | Change account password & invalidate sessions |
+| `GET` | `/api/auth/csrf-token` | Public | Retrieve / initialize anti-CSRF token |
+
+### Administration Endpoints
+| Method | Endpoint | Protection | Purpose |
+|--------|----------|------------|---------|
+| `GET` | `/api/admin/me` | Admin Role | Verify admin status and retrieve admin profile |
+| `GET` | `/api/admin/users` | Admin Role | Paginated list of registered users with search |
+| `PATCH` | `/api/admin/users/{id}/status` | Admin Role + CSRF | Activate or suspend a user account |
+| `PATCH` | `/api/admin/users/{id}/role` | Admin Role + CSRF | Elevate or demote user role (`user`/`admin`) |
+
+### Core Career Intelligence Endpoints
 | Method | Endpoint | Purpose |
 |--------|----------|---------|
-| `GET` | `/health` | Health check |
+| `GET` | `/` | API Information and root status |
 | `POST` | `/analyze` | Resume analysis & ATS scoring |
 | `POST` | `/interview-prep` | Generate interview questions |
 | `POST` | `/salary-insights` | Salary estimation & negotiation |
 | `POST` | `/jobs/search` | Search live job listings |
-| `POST` | `/jobs/match` | Match jobs to candidate profile |
-| `POST` | `/cover-letter` | Generate cover letter |
+| `POST` | `/cover-letter/quick` | Generate personalized cover letter |
 | `POST` | `/chat` | AI career chat |
-| `POST` | `/chat/upload` | Chat with file upload |
+| `POST` | `/chat/with-file` | Career chat with file upload |
 
 ---
 

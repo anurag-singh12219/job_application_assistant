@@ -97,26 +97,58 @@ ADZUNA_APP_KEY=your_adzuna_app_key
 OPENAI_API_KEY=your_openai_api_key
 
 # Environment
-ENV=development
+# Environment
+ENVIRONMENT=development
+
+# Database Configuration (Default SQLite, or PostgreSQL in production)
+DATABASE_URL=sqlite:///./auth.db
+
+# Authentication Security Secret
+JWT_SECRET_KEY=change-to-a-secure-random-secret-in-production-min-32-chars
+COOKIE_SECURE=false
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
 ```
 
-**Getting API Keys:**
+### 6. Database Setup & Migrations (SQLAlchemy 2.x & Alembic)
 
-- **Groq API** (Free, ~30k tokens/day):
-  1. Visit https://console.groq.com
-  2. Sign up for free account
-  3. Create API key
-  4. Add to `.env`
+The application uses SQLAlchemy 2.x with Alembic migrations.
 
-- **Adzuna Jobs API** (Free to use):
-  1. Visit https://developer.adzuna.com
-  2. Register as developer
-  3. Get App ID and Key
-  4. Add to `.env`
+**Run migrations to initialize or update the database schema:**
+```bash
+alembic upgrade head
+```
 
-**Note**: The app works without API keys with fallback responses, but AI features and live job search will be limited.
+**Generate a new migration (when models change):**
+```bash
+alembic revision --autogenerate -m "describe_changes"
+```
 
-### 6. Verify Backend Installation
+### 7. Create the Initial Administrator Account
+
+Administrators cannot register through public sign-up forms. Use the protected CLI tool to securely bootstrap an administrator:
+
+```bash
+# Windows / PowerShell
+python cli.py create-admin --email "admin@jobpilot.ai" --name "Lead Administrator" --password "YourStrongPassword123!"
+
+# Or omit --password to be prompted securely without shell history echo
+python cli.py create-admin --email "admin@jobpilot.ai" --name "Lead Administrator"
+```
+
+**View existing registered users:**
+```bash
+python cli.py show-users
+```
+
+### 8. Run the Authentication & Security Test Suite
+
+The test suite covers registration, login, rate limiting, lockout, token rotation, reuse detection, email verification, password reset, and role authorization:
+
+```bash
+pytest tests -v
+```
+
+### 9. Verify Backend Installation
 
 Test that all dependencies are correctly installed:
 
@@ -124,16 +156,17 @@ Test that all dependencies are correctly installed:
 # Test imports
 python -c "
 import fastapi
+import sqlalchemy
+import alembic
+import argon2
+import jwt
 import pandas
 import sklearn
-import spacy
-import pdfplumber
-import requests
 print('✓ All dependencies installed successfully')
 "
 ```
 
-### 7. Start Backend Server
+### 10. Start Backend Server
 
 ```bash
 uvicorn main:app --reload --port 8000
